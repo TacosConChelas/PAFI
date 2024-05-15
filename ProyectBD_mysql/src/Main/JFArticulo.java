@@ -10,6 +10,7 @@ package Main;
  * @author josue
  */
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -22,11 +23,50 @@ public class JFArticulo extends javax.swing.JFrame {
     Connection con;
     Statement st;
     DefaultTableModel modeloArticulo;
+    ResultSet rs;
+    
     
     public JFArticulo() {
         initComponents();
     }
-
+    
+    public void showOrdenes(){
+        System.out.println("Entre al metodo");
+        for (int i = 0; i < this.jTProductos.getRowCount(); i++){
+            modeloArticulo.removeRow(i);
+            i = i - 1;
+        }
+        String sql = "select * from producto";
+        try{
+            con = conect.getConnection();
+            st = con.createStatement();
+            rs= st.executeQuery(sql);
+            
+            
+            Object[] detallev = new Object[4];
+            modeloArticulo = (DefaultTableModel)this.jTProductos.getModel();
+            while(rs.next()){
+                detallev[0] = rs.getInt("idProducto");
+                detallev[1] = rs.getString("NombreP");
+                detallev[2] = rs.getString("Descripcion");
+                detallev[3] = rs.getInt("PrecioCompra");
+                detallev[4] = rs.getInt("PrecioVenta");
+                detallev[3] = rs.getInt("Cantidad");
+                
+                modeloArticulo.addRow(detallev);    
+            }
+            this.jTProductos.setModel(modeloArticulo);
+            
+            
+            JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+            
+        }catch(SQLException e){
+            System.out.println(" El error es " + e);
+        }
+        
+        
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -52,7 +92,7 @@ public class JFArticulo extends javax.swing.JFrame {
         jBExit = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTProductos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,7 +139,7 @@ public class JFArticulo extends javax.swing.JFrame {
             }
         });
 
-        jBMostrar.setText("Mostrar");
+        jBMostrar.setText("Mostrar productos");
         jBMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBMostrarActionPerformed(evt);
@@ -124,31 +164,22 @@ public class JFArticulo extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(8, 8, 8)
+                            .addGap(23, 23, 23)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jBEliminar)
                                 .addComponent(jBAgregar))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jBottonUpdate)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jBExit))
-                                .addComponent(jBMostrar)))
+                                .addComponent(jBMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
+                            .addGap(25, 25, 25)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -167,7 +198,18 @@ public class JFArticulo extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTFPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jTFPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -211,15 +253,12 @@ public class JFArticulo extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Productos"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "idProducto", "NombreP", "Descripcion", "PrecioCompa", "PrecioVenta", "Cantidad"
+                "idProducto", "Nombre", "Descripcion", "PrecioCompa", "PrecioVenta", "Cantidad"
             }
         ) {
             Class[] types = new Class [] {
@@ -230,12 +269,12 @@ public class JFArticulo extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                jTProductosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTProductos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -288,7 +327,12 @@ public class JFArticulo extends javax.swing.JFrame {
         try{
             con=conect.getConnection();
             st=con.createStatement();
-            st.executeUpdate(sqlInsertar);
+            con.setAutoCommit(false);
+            st.addBatch(sqlInsertar);
+            st.executeBatch();
+            con.commit();
+            con.setAutoCommit(true);
+            
             JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
             
         }catch(SQLException e){
@@ -296,16 +340,16 @@ public class JFArticulo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBAgregarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int fila = this.jTable1.getSelectedRow();
-        this.jTFidProduct.setText(this.jTable1.getValueAt(fila, 0).toString());
-        this.jTFNombreP.setText(this.jTable1.getValueAt(fila, 1).toString());
-        this.jTFDescription.setText(this.jTable1.getValueAt(fila, 2).toString());
-        this.jTFPrecioCompra.setText(this.jTable1.getValueAt(fila, 3).toString());
-        this.jTFPrecioVenta.setText(this.jTable1.getValueAt(fila, 4).toString());
-        this.jTFCantidad.setText(this.jTable1.getValueAt(fila, 3).toString());
+    private void jTProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductosMouseClicked
+        int fila = this.jTProductos.getSelectedRow();
+        this.jTFidProduct.setText(this.jTProductos.getValueAt(fila, 0).toString());
+        this.jTFNombreP.setText(this.jTProductos.getValueAt(fila, 1).toString());
+        this.jTFDescription.setText(this.jTProductos.getValueAt(fila, 2).toString());
+        this.jTFPrecioCompra.setText(this.jTProductos.getValueAt(fila, 3).toString());
+        this.jTFPrecioVenta.setText(this.jTProductos.getValueAt(fila, 4).toString());
+        this.jTFCantidad.setText(this.jTProductos.getValueAt(fila, 3).toString());
         
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_jTProductosMouseClicked
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
@@ -320,7 +364,7 @@ public class JFArticulo extends javax.swing.JFrame {
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBottonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBottonUpdateActionPerformed
-        int fila = this.jTable1.getSelectedRow();
+        int fila = this.jTProductos.getSelectedRow();
        
         String nameP = this.jTFNombreP.getText();
         String description = this.jTFDescription.getText();
@@ -347,9 +391,7 @@ public class JFArticulo extends javax.swing.JFrame {
 
     private void jBMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+        this.showOrdenes();
         
     }//GEN-LAST:event_jBMostrarActionPerformed
 
@@ -358,7 +400,7 @@ public class JFArticulo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFidProductActionPerformed
 
     private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed
-        this.setVisible(false);
+        System.exit(0);
     }//GEN-LAST:event_jBExitActionPerformed
 
     /**
@@ -417,6 +459,6 @@ public class JFArticulo extends javax.swing.JFrame {
     private javax.swing.JTextField jTFPrecioCompra;
     private javax.swing.JTextField jTFPrecioVenta;
     private javax.swing.JTextField jTFidProduct;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTProductos;
     // End of variables declaration//GEN-END:variables
 }

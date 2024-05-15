@@ -31,6 +31,7 @@ public class jFMainPantalla extends javax.swing.JFrame {
         jBEmpleados = new javax.swing.JButton();
         jBDetallarVenta = new javax.swing.JButton();
         jBNewMateriales = new javax.swing.JButton();
+        jBShowOrdenes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +70,13 @@ public class jFMainPantalla extends javax.swing.JFrame {
             }
         });
 
+        jBShowOrdenes.setText("Mostrar Ordenes");
+        jBShowOrdenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBShowOrdenesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,6 +84,7 @@ public class jFMainPantalla extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBShowOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBNewMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBDetallarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -87,16 +96,18 @@ public class jFMainPantalla extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(78, 78, 78)
-                .addComponent(jBArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBDetallarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBDetallarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBNewMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBNewMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addComponent(jBShowOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,6 +134,14 @@ public class jFMainPantalla extends javax.swing.JFrame {
     private void jBNewMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNewMaterialesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBNewMaterialesActionPerformed
+
+    private void jBShowOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBShowOrdenesActionPerformed
+        // TODO add your handling code here:
+        JFShowOrdenes orden = new JFShowOrdenes();
+        orden.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jBShowOrdenesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,6 +183,7 @@ public class jFMainPantalla extends javax.swing.JFrame {
     private javax.swing.JButton jBDetallarVenta;
     private javax.swing.JButton jBEmpleados;
     private javax.swing.JButton jBNewMateriales;
+    private javax.swing.JButton jBShowOrdenes;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
