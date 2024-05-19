@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Main.Logic;
+package Main.Logic_root;
 
 import Main.Conexion;
 import java.sql.Connection;
@@ -32,7 +32,7 @@ public class JFShowOrdenes extends javax.swing.JFrame {
     }
     
     public void showOrdenes(){
-        System.out.println("Entre al metodo");
+        //System.out.println("Entre al metodo");
         for (int i = 0; i < this.jTShowOrden.getRowCount(); i++){
             modeloOrdenes.removeRow(i);
             i = i - 1;

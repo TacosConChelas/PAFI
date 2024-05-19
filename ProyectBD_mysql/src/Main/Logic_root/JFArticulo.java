@@ -1,4 +1,4 @@
-package Main.Logic;
+package Main.Logic_root;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -91,6 +91,7 @@ public class JFArticulo extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTFCantidad = new javax.swing.JTextField();
         jBExit = new javax.swing.JButton();
+        jBEliminarP = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTProductos = new javax.swing.JTable();
@@ -126,7 +127,7 @@ public class JFArticulo extends javax.swing.JFrame {
             }
         });
 
-        jBEliminar.setText("Eliminar");
+        jBEliminar.setText("Limpiar campos");
         jBEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBEliminarActionPerformed(evt);
@@ -160,6 +161,13 @@ public class JFArticulo extends javax.swing.JFrame {
             }
         });
 
+        jBEliminarP.setText("Eliminar producto");
+        jBEliminarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,16 +177,17 @@ public class JFArticulo extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(23, 23, 23)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jBEliminar)
-                                .addComponent(jBAgregar))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jBEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBEliminarP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jBottonUpdate)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jBExit))
-                                .addComponent(jBMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jBMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(25, 25, 25)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -201,17 +210,16 @@ public class JFArticulo extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(jTFPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTFPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTFPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,16 +248,18 @@ public class JFArticulo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBEliminar)
-                    .addComponent(jBMostrar))
+                    .addComponent(jBMostrar)
+                    .addComponent(jBEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBAgregar)
-                    .addComponent(jBottonUpdate)
-                    .addComponent(jBExit))
-                .addGap(22, 22, 22))
+                    .addComponent(jBExit)
+                    .addComponent(jBottonUpdate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBEliminarP)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Productos"));
@@ -263,7 +273,7 @@ public class JFArticulo extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -282,12 +292,12 @@ public class JFArticulo extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -327,20 +337,36 @@ public class JFArticulo extends javax.swing.JFrame {
         int cantidad = Integer.parseInt(this.jTFCantidad.getText());
         
         String sqlInsertar="insert into producto values (" + idProducto + ", '" + nameP + "', '" + description + "', " + precioVenta + ", " + precioCompra + ", " + cantidad + ");";
-        try{
-            con=conect.getConnection();
-            st=con.createStatement();
-            con.setAutoCommit(false);
-            st.addBatch(sqlInsertar);
-            st.executeBatch();
-            con.commit();
-            con.setAutoCommit(true);
+        
+        int validacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas insertar este registro?", "Confirmar insersion registro", JOptionPane.YES_NO_OPTION);
+        if(validacion == JOptionPane.YES_OPTION) {
+        
+            try{
+                con=conect.getConnection();
+                st=con.createStatement();
+                con.setAutoCommit(false);
+                st.addBatch(sqlInsertar);
+                st.executeBatch();
+                con.commit();
+                con.setAutoCommit(true);
             
-            JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+                JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
             
-        }catch(SQLException e){
-            System.out.println(" El error es " + e);
-        }
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            }  finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+            } 
+        
+        } else {    System.out.println("Opcion cancelada por el usuario");  }
+        
+        
+        
+       
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jTProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductosMouseClicked
@@ -378,23 +404,44 @@ public class JFArticulo extends javax.swing.JFrame {
         int cantidad = Integer.parseInt(this.jTFCantidad.getText());
         String sql = "update producto set NombreP = '" + nameP + "',  Descripcion = '" + description + "', PrecioCompra = " + precioCompra + ", PrecioVenta = " + precioVenta + ", Cantidad = " +  cantidad + " where idProducto = " + idProducto + ";"; 
         
-        try{
-            con = conect.getConnection();
-            st = con.createStatement();
-            st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Registro actualizado con exito");
+        int validacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas actualizar este registro?", "Confirmar actualización del registro", JOptionPane.YES_NO_OPTION);
         
+        if(validacion == JOptionPane.YES_OPTION) {
+            try{
+                con = conect.getConnection();
+                con.setAutoCommit(false);
+                
+                st = con.createStatement();
+                st.executeUpdate(sql);
+                
+                con.commit();
+                con.setAutoCommit(true);
+               
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
         
-        } catch(SQLException e){
-            System.out.println(" El error es " + e);
-        }
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            } finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+            } 
         
+        } else {    System.out.println("Opcion cancelada por el usuario");  }
         
     }//GEN-LAST:event_jBottonUpdateActionPerformed
 
+    
     private void jBMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarActionPerformed
         // TODO add your handling code here:
         this.showOrdenes();
+        
+        
+        
+        
+        
         
     }//GEN-LAST:event_jBMostrarActionPerformed
 
@@ -405,6 +452,52 @@ public class JFArticulo extends javax.swing.JFrame {
     private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jBExitActionPerformed
+
+    private void jBEliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarPActionPerformed
+        
+        
+        int idProducto = Integer.parseInt(this.jTFidProduct.getText());
+        
+        String sqlDelete = "delete from producto where idProducto = " + idProducto + ";" ;
+        int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el registro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+       
+        if (option == JOptionPane.YES_OPTION) {
+          
+            try{
+                con=conect.getConnection();
+                st=con.createStatement();
+                con.setAutoCommit(false);
+                st.addBatch(sqlDelete);
+                st.executeBatch();
+                con.commit();
+                con.setAutoCommit(true);
+            
+                JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+            
+            } catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            } finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar la conexión: " + e);
+                }
+            } 
+            
+        } else {
+           System.out.println("Opcion cancelada por el usuario");
+       
+       }
+       
+       
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jBEliminarPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,6 +537,7 @@ public class JFArticulo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton jBEliminarP;
     private javax.swing.JButton jBExit;
     private javax.swing.JButton jBMostrar;
     private javax.swing.JButton jBottonUpdate;

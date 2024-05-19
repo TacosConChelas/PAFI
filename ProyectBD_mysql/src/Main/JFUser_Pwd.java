@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Main;
+import Main.Logic_root.*;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -207,7 +209,18 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                 
                 if(pwdU.equals(pwdFromBD)){
                     
-                    JOptionPane.showMessageDialog(null, "Ingreso exitoso");
+                    if(idUser == 9999){
+                        JOptionPane.showMessageDialog(null, "Ingreso exitoso al usuario ROOT");
+                        JFMainPantalla_Root mainPantalla = new JFMainPantalla_Root();
+                        mainPantalla.setVisible(true);
+                        mainPantalla.setLocationRelativeTo(null);
+                    
+                    } else {
+                    
+                    
+                    }
+                    
+                    
                     
                 } else {
                     

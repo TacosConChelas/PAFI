@@ -68,7 +68,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jBArticulos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Articulos"/>
+        <Property name="text" type="java.lang.String" value="Productos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBArticulosActionPerformed"/>
@@ -92,7 +92,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jBNewMateriales">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Detallar una compra de materiales"/>
+        <Property name="text" type="java.lang.String" value="Detallar una compra de productos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBNewMaterialesActionPerformed"/>
