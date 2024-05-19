@@ -131,7 +131,7 @@ public class JFUserRegister extends javax.swing.JFrame {
         
         String sqlBusqueda = "select * from users where idUser = " + idUser + ";";
        
-        String sqlInsert = "insert into users values (" + idUser + ", " + pwdU + ");" ;
+        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "');" ;
         
         try{
             con = conect.getConnection();
@@ -150,6 +150,7 @@ public class JFUserRegister extends javax.swing.JFrame {
         }   catch(SQLException e){
             System.out.println(" El error es " + e);
         }  finally {
+            //Limpia y cierra las conecciones para liberar memoria 
             try {
                 if (rs != null) rs.close();
                 if (st != null) st.close();

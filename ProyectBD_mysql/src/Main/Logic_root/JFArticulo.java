@@ -33,6 +33,8 @@ public class JFArticulo extends javax.swing.JFrame {
     
     public void showOrdenes(){
         System.out.println("Entre al metodo");
+        
+        
         for (int i = 0; i < this.jTProductos.getRowCount(); i++){
             modeloArticulo.removeRow(i);
             i = i - 1;
@@ -44,7 +46,7 @@ public class JFArticulo extends javax.swing.JFrame {
             rs= st.executeQuery(sql);
             
             
-            Object[] detallev = new Object[4];
+            Object[] detallev = new Object[6];
             modeloArticulo = (DefaultTableModel)this.jTProductos.getModel();
             while(rs.next()){
                 detallev[0] = rs.getInt("idProducto");
@@ -52,7 +54,7 @@ public class JFArticulo extends javax.swing.JFrame {
                 detallev[2] = rs.getString("Descripcion");
                 detallev[3] = rs.getInt("PrecioCompra");
                 detallev[4] = rs.getInt("PrecioVenta");
-                detallev[3] = rs.getInt("Cantidad");
+                detallev[5] = rs.getInt("Cantidad");
                 
                 modeloArticulo.addRow(detallev);    
             }

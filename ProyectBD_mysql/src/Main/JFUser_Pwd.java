@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Main;
+import Main.Logic.*;
 import Main.Logic_root.*;
 
 
@@ -11,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -23,7 +24,7 @@ public class JFUser_Pwd extends javax.swing.JFrame {
     Conexion conect = new Conexion();
     Connection con;
     Statement st;
-    DefaultTableModel modeloArticulo;
+    
     ResultSet rs;
     /**
      * Creates new form JFUser_Pwd
@@ -48,8 +49,8 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         jPF_IdUser = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBIngresar = new javax.swing.JButton();
+        jBRegistrarse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,17 +83,17 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("puedes registrarte aqui abajo:");
 
-        jButton1.setText("INGRESAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBIngresar.setText("INGRESAR");
+        jBIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBIngresarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("REGISTRARSE");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBRegistrarse.setText("REGISTRARSE");
+        jBRegistrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBRegistrarseActionPerformed(evt);
             }
         });
 
@@ -113,10 +114,10 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(254, 254, 254)
-                        .addComponent(jButton1))
+                        .addComponent(jBIngresar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(242, 242, 242)
-                        .addComponent(jButton2)))
+                        .addComponent(jBRegistrarse)))
                 .addContainerGap(143, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -140,13 +141,13 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                 .addGap(197, 197, 197)
                 .addComponent(jPFPwdUser, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jButton1)
+                .addComponent(jBIngresar)
                 .addGap(32, 32, 32)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jBRegistrarse)
                 .addGap(49, 49, 49))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -179,7 +180,7 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistrarseActionPerformed
         
         JFUserRegister userR = new JFUserRegister();//Se crea una inatancia de la clase JFUserRegister
         userR.setVisible(true); //Se hace visible
@@ -187,10 +188,10 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         
         
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBRegistrarseActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int idUser = Integer.parseInt(this.jPF_IdUser.getPassword().toString());
+    private void jBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarActionPerformed
+        int idUser = Integer.parseInt(new String(this.jPF_IdUser.getPassword()));
         String pwdU = new String(this.jPFPwdUser.getPassword());
         
         String sqlBusqueda = " select pwdUser from users where idUser = " + idUser + ";" ;
@@ -211,16 +212,15 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                     
                     if(idUser == 9999){
                         JOptionPane.showMessageDialog(null, "Ingreso exitoso al usuario ROOT");
-                        JFMainPantalla_Root mainPantalla = new JFMainPantalla_Root();
-                        mainPantalla.setVisible(true);
-                        mainPantalla.setLocationRelativeTo(null);
+                        JFMainPantalla_Root mainPantallRoot = new JFMainPantalla_Root();
+                        mainPantallRoot.setVisible(true);
+                        mainPantallRoot.setLocationRelativeTo(null);
                     
                     } else {
-                    
-                    
+                        JFMainPantalla mainPantalla = new JFMainPantalla();
+                        mainPantalla.setVisible(true);
+                        mainPantalla.setLocationRelativeTo(null);
                     }
-                    
-                    
                     
                 } else {
                     
@@ -248,7 +248,7 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,8 +286,8 @@ public class JFUser_Pwd extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBIngresar;
+    private javax.swing.JButton jBRegistrarse;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
