@@ -316,6 +316,8 @@ public class JFArticulo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+        
+        ////////////////////////////////////////////////////////////////////////////////////////
         int idProducto = Integer.parseInt( this.jTFidProduct.getText());
         String nameP = this.jTFNombreP.getText();
         String description = this.jTFDescription.getText();

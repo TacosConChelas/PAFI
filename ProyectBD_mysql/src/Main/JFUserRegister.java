@@ -4,12 +4,24 @@
  */
 package Main;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
+
 /**
  *
  * @author TheOneAboveAll
  */
 public class JFUserRegister extends javax.swing.JFrame {
 
+    Conexion conect = new Conexion();
+    Connection con;
+    Statement st;
+    DefaultTableModel modeloArticulo;
+    ResultSet rs;
     /**
      * Creates new form JFUserRegister
      */
@@ -54,6 +66,11 @@ public class JFUserRegister extends javax.swing.JFrame {
         jPFUserPwd.setText("jPasswordField1");
 
         jBRegistrarU.setText("Registrar usuario");
+        jBRegistrarU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRegistrarUActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,7 +91,7 @@ public class JFUserRegister extends javax.swing.JFrame {
                                 .addGap(186, 186, 186)
                                 .addComponent(jLabel2))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
+                        .addGap(199, 199, 199)
                         .addComponent(jBRegistrarU, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(140, Short.MAX_VALUE))
         );
@@ -107,6 +124,46 @@ public class JFUserRegister extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBRegistrarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistrarUActionPerformed
+        int idUser = Integer.parseInt(this.jTFUserId.getText());
+        String pwdU = new String(this.jPFUserPwd.getPassword());
+        
+        String sqlBusqueda = "select * from users where idUser = " + idUser + ";";
+       
+        String sqlInsert = "insert into users values (" + idUser + ", " + pwdU + ");" ;
+        
+        try{
+            con = conect.getConnection();
+            st = con.createStatement();
+            rs= st.executeQuery(sqlBusqueda);
+            System.out.println("Se conectó correctamente a BD");
+            
+            //Evaluacion si contiene alguna columna 
+            if(! rs.next()){
+                st.executeUpdate(sqlInsert);
+                JOptionPane.showMessageDialog(null, "registro exitoso");
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Lo sentimos pero este usuario y/o contraseña ya existe");
+            }
+        }   catch(SQLException e){
+            System.out.println(" El error es " + e);
+        }  finally {
+            try {
+                if (rs != null) rs.close();
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión " + e);
+            }
+        }
+         
+         
+         
+         
+       
+    }//GEN-LAST:event_jBRegistrarUActionPerformed
 
     /**
      * @param args the command line arguments

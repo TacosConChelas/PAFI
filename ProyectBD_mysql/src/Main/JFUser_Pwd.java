@@ -6,7 +6,9 @@ package Main;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -79,6 +81,11 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         jLabel4.setText("puedes registrarte aqui abajo:");
 
         jButton1.setText("INGRESAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("REGISTRARSE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -171,12 +178,64 @@ public class JFUser_Pwd extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
         
+        JFUserRegister userR = new JFUserRegister();//Se crea una inatancia de la clase JFUserRegister
+        userR.setVisible(true); //Se hace visible
+        userR.setLocationRelativeTo(null); //Se coloca en el centro de la pantalla 
         
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int idUser = Integer.parseInt(this.jPF_IdUser.getPassword().toString());
+        String pwdU = new String(this.jPFPwdUser.getPassword());
+        
+        String sqlBusqueda = " select pwdUser from users where idUser = " + idUser + ";" ;
+        //.getPassword().toString()
+        
+        
+        try{
+            con = conect.getConnection();
+            st = con.createStatement();
+            rs= st.executeQuery(sqlBusqueda);
+            System.out.println("Se conectó correctamente a BD");
+            
+            //Evaluacion si contiene alguna columna 
+            if(rs.next()){
+                String pwdFromBD = rs.getString("pwdUser");
+                
+                if(pwdU.equals(pwdFromBD)){
+                    
+                    JOptionPane.showMessageDialog(null, "Ingreso exitoso");
+                    
+                } else {
+                    
+                    JOptionPane.showMessageDialog(null, "Contraseña incrrecta");
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Lo sentimos pero este usuario no existe");
+            }
+        }   catch(SQLException e){
+            System.out.println(" El error es " + e);
+            
+        }  finally {
+            try {
+                if (rs != null) rs.close();
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión " + e);
+            }
+        }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
