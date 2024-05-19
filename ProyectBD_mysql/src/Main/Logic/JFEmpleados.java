@@ -1,4 +1,4 @@
-package Main;
+package Main.Logic;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -9,6 +9,7 @@ package Main;
  *
  * @author josue
  */
+import Main.Conexion;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -272,8 +273,6 @@ public class JFEmpleados extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-
-        jPanel1.getAccessibleContext().setAccessibleName("Datos de los empleados");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
