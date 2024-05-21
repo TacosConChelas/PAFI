@@ -5,10 +5,27 @@
 package Main.Logic_root;
 
 import Main.Conexion;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,7 +73,7 @@ public class JFShowOrdenes extends javax.swing.JFrame {
             this.jTShowOrden.setModel(modeloOrdenes);
             
             
-            JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+            //JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
             
         }catch(SQLException e){
             System.out.println(" El error es " + e);
@@ -78,6 +95,7 @@ public class JFShowOrdenes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTShowOrden = new javax.swing.JTable();
         jBExit = new javax.swing.JButton();
+        jBImprimirPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +124,13 @@ public class JFShowOrdenes extends javax.swing.JFrame {
             }
         });
 
+        jBImprimirPDF.setText("Generar PDF");
+        jBImprimirPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImprimirPDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,15 +139,20 @@ public class JFShowOrdenes extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jBExit)
+                .addGap(18, 18, 18)
+                .addComponent(jBImprimirPDF)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 22, Short.MAX_VALUE)
-                .addComponent(jBExit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBExit)
+                    .addComponent(jBImprimirPDF))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,6 +173,90 @@ public class JFShowOrdenes extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jBExitActionPerformed
+
+    private void jBImprimirPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirPDFActionPerformed
+        //Se crea un reporte de tipo pdf para el proyecto
+        Document documento = new Document(PageSize.A4.rotate(), 10f, 10, 100f, 0f);
+        
+        try{
+            String ruta = System.getProperty("user.home");
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Downloads/Productos.pdf"));
+            Image logo = Image.getInstance("src/Img/img1.jpg");
+            
+            
+            
+            logo.scaleToFit(100, 100);
+            logo.setAlignment(Chunk.HEADER);
+            
+            
+            Paragraph titulo = new Paragraph();
+            titulo.setAlignment(Paragraph.HEADER);
+            titulo.setFont(FontFactory.getFont("Arial", 15, Font.ITALIC, BaseColor.BLACK));
+            titulo.add("Un perrito bonito y elegante ");
+            
+            Paragraph texto = new Paragraph();
+            titulo.setAlignment(Paragraph.HEADER);
+            titulo.setFont(FontFactory.getFont("Arial", 10, Font.ITALIC, BaseColor.BLACK));
+            titulo.add("todo bonito todo hermoso ");
+            
+            
+            documento.open();
+            documento.add(logo);
+            documento.add(titulo);
+            documento.add(texto);
+            
+            PdfPTable tabla = new PdfPTable(4);
+            tabla.addCell("idProducto");
+            tabla.addCell("folio");
+            tabla.addCell("cantidad");
+            tabla.addCell("subtotal");
+            
+            for (int i = 0; i < this.jTShowOrden.getRowCount(); i++){
+            modeloOrdenes.removeRow(i);
+            i = i - 1;
+            }
+            String sql = "select * from detallev";
+            try{
+                con = conect.getConnection();
+                st = con.createStatement();
+                rs= st.executeQuery(sql);
+            
+            
+                Object[] detallev = new Object[4];
+                modeloOrdenes = (DefaultTableModel)this.jTShowOrden.getModel();
+                while(rs.next()){
+                    tabla.addCell(String.valueOf(rs.getInt("idProducto")));
+                    tabla.addCell(String.valueOf(rs.getInt("folio"))); 
+                    tabla.addCell(String.valueOf(rs.getFloat("cantidad"))); 
+                    tabla.addCell(String.valueOf(rs.getFloat("subtotal")));
+                    modeloOrdenes.addRow(detallev);    
+                }
+                //this.jTShowOrden.setModel(modeloOrdenes);
+            
+            
+                //JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+            
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+            }
+            
+            
+            documento.add(tabla);
+            
+            documento.close();
+        } catch (DocumentException e){
+            System.out.println("El error es " + e);
+            
+       
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JFShowOrdenes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JFShowOrdenes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }//GEN-LAST:event_jBImprimirPDFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +295,7 @@ public class JFShowOrdenes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBExit;
+    private javax.swing.JButton jBImprimirPDF;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTShowOrden;

@@ -31,7 +31,7 @@ public class JFArticulo extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void showOrdenes(){
+    public void showProductos(){
         System.out.println("Entre al metodo");
         
         
@@ -61,7 +61,7 @@ public class JFArticulo extends javax.swing.JFrame {
             this.jTProductos.setModel(modeloArticulo);
             
             
-            JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+            //JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
             
         }catch(SQLException e){
             System.out.println(" El error es " + e);
@@ -438,7 +438,7 @@ public class JFArticulo extends javax.swing.JFrame {
     
     private void jBMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarActionPerformed
         // TODO add your handling code here:
-        this.showOrdenes();
+        this.showProductos();
         
         
         
@@ -461,6 +461,7 @@ public class JFArticulo extends javax.swing.JFrame {
         int idProducto = Integer.parseInt(this.jTFidProduct.getText());
         
         String sqlDelete = "delete from producto where idProducto = " + idProducto + ";" ;
+        
         int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el registro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
        
         if (option == JOptionPane.YES_OPTION) {
@@ -493,11 +494,7 @@ public class JFArticulo extends javax.swing.JFrame {
        
        }
        
-       
-        
-        
-        
-        
+         
         
     }//GEN-LAST:event_jBEliminarPActionPerformed
 

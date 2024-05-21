@@ -300,10 +300,10 @@ public class JFEmpleados extends javax.swing.JFrame {
         //cast colocado
         String horario = this.jTFHorario.getText();
         String emailE = this.jTFEmail.getText();
-        String date
+        
         int cantidad = Integer.parseInt(this.jTFDateContrato.getText());
         
-        String sqlInsertar="insert into producto values (" + idProducto + ", '" + nameP + "', '" + description + "', " + precioVenta + ", " + precioCompra + ", " + cantidad + ");";
+        String sqlInsertar="insert into producto values (" + idEmpleado + ", '" + nameP + "', '" + description + "', " + precioVenta + ", " + precioCompra + ", " + cantidad + ");";
         try{
             con=conect.getConnection();
             st=con.createStatement();
