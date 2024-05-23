@@ -32,6 +32,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
         jBDetallarVenta = new javax.swing.JButton();
         jBNewMateriales = new javax.swing.JButton();
         jBShowOrdenes = new javax.swing.JButton();
+        jBShowUsers = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +78,13 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
             }
         });
 
+        jBShowUsers.setText("Tabla de usuarios");
+        jBShowUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBShowUsersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,6 +92,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBShowUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBShowOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBNewMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBDetallarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -105,9 +114,11 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
                 .addComponent(jBNewMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBShowOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(jBShowUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,6 +153,10 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jBShowOrdenesActionPerformed
+
+    private void jBShowUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBShowUsersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBShowUsersActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +199,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
     private javax.swing.JButton jBEmpleados;
     private javax.swing.JButton jBNewMateriales;
     private javax.swing.JButton jBShowOrdenes;
+    private javax.swing.JButton jBShowUsers;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-package Main.Logic_root;
+package Main.Logic;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -9,6 +9,7 @@ package Main.Logic_root;
  *
  * @author josue
  */
+import Main.Logic_root.*;
 import Main.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class JFArticulo extends javax.swing.JFrame {
+public class JFArticulo1 extends javax.swing.JFrame {
 
     //Se crea un objeto de la case Conexion para lograr la coneccion desde quí
     Conexion conect = new Conexion();
@@ -26,10 +27,10 @@ public class JFArticulo extends javax.swing.JFrame {
     Statement st;
     DefaultTableModel modeloArticulo;
     ResultSet rs;
-    public int idUser = 9999;
+    public int idUser;
     
     
-    public JFArticulo() {
+    public JFArticulo1(int idu) {
         initComponents();
         
     }
@@ -137,7 +138,6 @@ public class JFArticulo extends javax.swing.JFrame {
         jTFNombreP = new javax.swing.JTextField();
         jTFDescription = new javax.swing.JTextField();
         jTFPrecioCompra = new javax.swing.JTextField();
-        jBAgregar = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
         jBottonUpdate = new javax.swing.JButton();
         jBMostrar = new javax.swing.JButton();
@@ -146,7 +146,6 @@ public class JFArticulo extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTFCantidad = new javax.swing.JTextField();
         jBExit = new javax.swing.JButton();
-        jBEliminarP = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTProductos = new javax.swing.JTable();
@@ -172,13 +171,6 @@ public class JFArticulo extends javax.swing.JFrame {
         jTFidProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTFidProductActionPerformed(evt);
-            }
-        });
-
-        jBAgregar.setText("Agregar");
-        jBAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAgregarActionPerformed(evt);
             }
         });
 
@@ -216,13 +208,6 @@ public class JFArticulo extends javax.swing.JFrame {
             }
         });
 
-        jBEliminarP.setText("Eliminar producto");
-        jBEliminarP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBEliminarPActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -232,10 +217,7 @@ public class JFArticulo extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(23, 23, 23)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jBEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBEliminarP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -309,12 +291,9 @@ public class JFArticulo extends javax.swing.JFrame {
                     .addComponent(jBEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBAgregar)
                     .addComponent(jBExit)
                     .addComponent(jBottonUpdate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBEliminarP)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Productos"));
@@ -379,53 +358,6 @@ public class JFArticulo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
-        int idProducto = Integer.parseInt( this.jTFidProduct.getText());
-        String nameP = this.jTFNombreP.getText();
-        String description = this.jTFDescription.getText();
-        //cast colocado
-        Double precioCompra = Double.parseDouble(this.jTFPrecioCompra.getText());
-        Double precioVenta = Double.parseDouble(this.jTFPrecioVenta.getText());
-        int cantidad = Integer.parseInt(this.jTFCantidad.getText());
-        
-        String sqlInsertar="insert into producto values (" + idProducto + ", '" + nameP + "', '" + description + "', " + precioVenta + ", " + precioCompra + ", " + cantidad + ");";
-        
-        int validacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas insertar este registro?", "Confirmar insersion registro", JOptionPane.YES_NO_OPTION);
-        if(validacion == JOptionPane.YES_OPTION) {
-        
-            try{
-                con=conect.getConnection();
-                st=con.createStatement();
-                con.setAutoCommit(false);
-                st.addBatch(sqlInsertar);
-                st.executeBatch();
-                con.commit();
-                con.setAutoCommit(true);
-            
-                JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
-                
-               this.actualizacionTablaUsers_AfterAction(0);
-            
- 
-            }catch(SQLException e){
-                System.out.println(" El error es " + e);
-                
-            }  finally {
-                try {
-                    if (st != null) st.close();
-                    if (con != null) con.close();
-                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
-            } 
-        
-        } else {    System.out.println("Opcion cancelada por el usuario");  }
-        
-        
-        
-       
-    }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jTProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductosMouseClicked
         int fila = this.jTProductos.getSelectedRow();
@@ -512,50 +444,6 @@ public class JFArticulo extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jBExitActionPerformed
 
-    private void jBEliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarPActionPerformed
-        
-        
-        int idProducto = Integer.parseInt(this.jTFidProduct.getText());
-        
-        String sqlDelete = "delete from producto where idProducto = " + idProducto + ";" ;
-        
-        int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el registro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-       
-        if (option == JOptionPane.YES_OPTION) {
-          
-            try{
-                con=conect.getConnection();
-                st=con.createStatement();
-                con.setAutoCommit(false);
-                st.addBatch(sqlDelete);
-                st.executeBatch();
-                con.commit();
-                con.setAutoCommit(true);
-            
-                JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
-                
-                this.actualizacionTablaUsers_AfterAction(1);
-            } catch(SQLException e){
-                System.out.println(" El error es " + e);
-                
-            } finally {
-                try {
-                    if (st != null) st.close();
-                    if (con != null) con.close();
-                } catch (SQLException e) {
-                    System.out.println("Error al cerrar la conexión: " + e);
-                }
-            } 
-            
-        } else {
-           System.out.println("Opcion cancelada por el usuario");
-       
-       }
-       
-         
-        
-    }//GEN-LAST:event_jBEliminarPActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -573,28 +461,23 @@ public class JFArticulo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFArticulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFArticulo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFArticulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFArticulo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFArticulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFArticulo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFArticulo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFArticulo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFArticulo().setVisible(true);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBEliminar;
-    private javax.swing.JButton jBEliminarP;
     private javax.swing.JButton jBExit;
     private javax.swing.JButton jBMostrar;
     private javax.swing.JButton jBottonUpdate;

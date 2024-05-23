@@ -10,6 +10,7 @@ import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  *
@@ -128,10 +129,12 @@ public class JFUserRegister extends javax.swing.JFrame {
     private void jBRegistrarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistrarUActionPerformed
         int idUser = Integer.parseInt(this.jTFUserId.getText());
         String pwdU = new String(this.jPFUserPwd.getPassword());
+        Date fechaD = new Date();
+        //System.out.println("hoy es " + fechaD.toString());
         
         String sqlBusqueda = "select * from users where idUser = " + idUser + ";";
        
-        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "');" ;
+        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "', '" + fechaD.toString() + "' );";
         
         try{
             con = conect.getConnection();

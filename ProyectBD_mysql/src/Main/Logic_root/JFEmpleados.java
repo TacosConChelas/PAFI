@@ -303,7 +303,7 @@ public class JFEmpleados extends javax.swing.JFrame {
         
         int cantidad = Integer.parseInt(this.jTFDateContrato.getText());
         
-        String sqlInsertar="insert into producto values (" + idEmpleado + ", '" + nameP + "', '" + description + "', " + precioVenta + ", " + precioCompra + ", " + cantidad + ");";
+        String sqlInsertar="insert into producto values (" + idEmpleado + ", '" + lastNameE+ "', '" + horario + "', " + emailE  + ");";
         try{
             con=conect.getConnection();
             st=con.createStatement();
@@ -366,6 +366,10 @@ public class JFEmpleados extends javax.swing.JFrame {
 
     private void jBMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
         
         
         

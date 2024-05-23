@@ -222,14 +222,14 @@ public class JFShowOrdenes extends javax.swing.JFrame {
                 rs= st.executeQuery(sql);
             
             
-                Object[] detallev = new Object[4];
+                //Object[] detallev = new Object[4];
                 modeloOrdenes = (DefaultTableModel)this.jTShowOrden.getModel();
                 while(rs.next()){
                     tabla.addCell(String.valueOf(rs.getInt("idProducto")));
                     tabla.addCell(String.valueOf(rs.getInt("folio"))); 
                     tabla.addCell(String.valueOf(rs.getFloat("cantidad"))); 
                     tabla.addCell(String.valueOf(rs.getFloat("subtotal")));
-                    modeloOrdenes.addRow(detallev);    
+                    //modeloOrdenes.addRow(detallev);    
                 }
                 //this.jTShowOrden.setModel(modeloOrdenes);
             
