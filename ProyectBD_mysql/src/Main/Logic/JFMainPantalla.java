@@ -32,11 +32,12 @@ public class JFMainPantalla extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jBShowEmpleados = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -45,7 +46,12 @@ public class JFMainPantalla extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Mostrar ordenes de venta");
+        jBShowEmpleados.setText("Mostrar empleados");
+        jBShowEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBShowEmpleadosActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Productos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +66,8 @@ public class JFMainPantalla extends javax.swing.JFrame {
 
         jButton5.setText("Lista de proveedores");
 
+        jButton6.setText("Mostrar ordenes de venta");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -67,11 +75,12 @@ public class JFMainPantalla extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBShowEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -85,9 +94,11 @@ public class JFMainPantalla extends javax.swing.JFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBShowEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -110,6 +121,12 @@ public class JFMainPantalla extends javax.swing.JFrame {
         System.out.println(this.idU);
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jBShowEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBShowEmpleadosActionPerformed
+        // TODO add your handling code here:
+        JFEmpleados1 empleados = new JFEmpleados1(this.idU  );
+        empleados.setVisible(true);
+    }//GEN-LAST:event_jBShowEmpleadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,11 +174,12 @@ public class JFMainPantalla extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBShowEmpleados;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;

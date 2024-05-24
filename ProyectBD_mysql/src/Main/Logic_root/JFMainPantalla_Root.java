@@ -135,7 +135,8 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
     }//GEN-LAST:event_jBArticulosActionPerformed
 
     private void jBEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEmpleadosActionPerformed
-        // TODO add your handling code here:
+        JFEmpleados empleados = new JFEmpleados();
+        empleados.setVisible(true);
     }//GEN-LAST:event_jBEmpleadosActionPerformed
 
     private void jBDetallarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDetallarVentaActionPerformed
@@ -155,7 +156,8 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
     }//GEN-LAST:event_jBShowOrdenesActionPerformed
 
     private void jBShowUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBShowUsersActionPerformed
-        // TODO add your handling code here:
+       JFShowUsers users = new JFShowUsers();
+       users.setVisible(true);
     }//GEN-LAST:event_jBShowUsersActionPerformed
 
     /**

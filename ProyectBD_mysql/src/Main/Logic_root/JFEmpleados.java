@@ -74,7 +74,7 @@ public class JFEmpleados extends javax.swing.JFrame {
     
    
     
-    public void actualizacionTablaUser(int option, int idu){
+    public void actualizacionTablaUser(int option){
         /*
             Metodo usado para actualizar la tabla usuarios dependiendo de la ultima accion que estos hayan realizado
         */
@@ -82,19 +82,19 @@ public class JFEmpleados extends javax.swing.JFrame {
         String sqlVitacoraU = "";
         switch(option){
             case 0: 
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Insercion de nuevos Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = " + idu + ";";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Insercion de nuevos Empleados', tablaActualizada = 'Tabla de Empleados' where idUser =  9999;";
                 break;
                 
             case 1:
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Eliminacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = " + idu + ";";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Eliminacion de Empleados', tablaActualizada = 'Tabla de Empleados' where idUser = 9999;";
                 break;
             
             case 2:
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Actualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = "  + idu + ";";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Actualizacion de Empleados', tablaActualizada = 'Tabla de Empleados' where idUser = 9999;";
                 break;
                 
             case 3: 
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = " + idu + ";";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visualizacion de Empleados', tablaActualizada = 'Tabla de Empleados' where idUser = 9999;";
                 break;
             default:     System.out.println("Sucedio un error en la insercion de la ultima accion realizada en la tabla de usuarios");
                 break;
@@ -422,7 +422,7 @@ public class JFEmpleados extends javax.swing.JFrame {
             
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
                 
-               this.actualizacionTablaUser(0, this.idUser);
+               this.actualizacionTablaUser(0);
             
  
             }catch(SQLException e){
@@ -498,7 +498,7 @@ public class JFEmpleados extends javax.swing.JFrame {
                
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
         
-                this.actualizacionTablaUser(2, this.idUser);
+                this.actualizacionTablaUser(2);
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
                 
@@ -518,7 +518,7 @@ public class JFEmpleados extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.showEmpleados();
         
-        
+        this.actualizacionTablaUser(3);
         
         
         
@@ -556,7 +556,7 @@ public class JFEmpleados extends javax.swing.JFrame {
             
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
                 
-                this.actualizacionTablaUser(1, this.idUser);
+                this.actualizacionTablaUser(1);
             } catch(SQLException e){
                 System.out.println(" El error es " + e);
                 
