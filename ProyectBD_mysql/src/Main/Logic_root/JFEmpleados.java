@@ -56,7 +56,7 @@ public class JFEmpleados extends javax.swing.JFrame {
                 detallev[3] = rs.getInt("Horario");
                 detallev[4] = rs.getString("Email");
                 detallev[5] = rs.getString("FechaContrato");
-                detallev[5] = rs.getString("tipoEmpleado");
+                detallev[6] = rs.getString("tipoEmpleado");
                 
                 modeloArticulo.addRow(detallev);    
             }
@@ -71,7 +71,10 @@ public class JFEmpleados extends javax.swing.JFrame {
         
         
     }
-    public void actualizacionTablaUsers_AfterAction(int option){
+    
+   
+    
+    public void actualizacionTablaUser(int option, int idu){
         /*
             Metodo usado para actualizar la tabla usuarios dependiendo de la ultima accion que estos hayan realizado
         */
@@ -79,19 +82,19 @@ public class JFEmpleados extends javax.swing.JFrame {
         String sqlVitacoraU = "";
         switch(option){
             case 0: 
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Insercion de nuevos Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Insercion de nuevos Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = " + idu + ";";
                 break;
                 
             case 1:
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Eliminacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Eliminacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = " + idu + ";";
                 break;
             
             case 2:
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Actualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Actualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = "  + idu + ";";
                 break;
                 
             case 3: 
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = " + idu + ";";
                 break;
             default:     System.out.println("Sucedio un error en la insercion de la ultima accion realizada en la tabla de usuarios");
                 break;
@@ -390,21 +393,49 @@ public class JFEmpleados extends javax.swing.JFrame {
         String nameE = this.jTFNombreE.getText();
         String lastNameE = this.jTFLastNameEmp.getText();
         //cast colocado
-        String horario = this.jTFHorario.getText();
+        int horario = Integer.parseInt(this.jTFHorario.getText());
         String emailE = this.jTFEmail.getText();
         
-        int cantidad = Integer.parseInt(this.jTFDateContrato.getText());
-        
-        String sqlInsertar="insert into producto values (" + idEmpleado + ", '" + lastNameE+ "', '" + horario + "', " + emailE  + ");";
-        try{
-            con=conect.getConnection();
-            st=con.createStatement();
-            st.executeUpdate(sqlInsertar);
-            JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
-            
-        }catch(SQLException e){
-            System.out.println(" El error es " + e);
+        String dateContrato = this.jTFDateContrato.getText();
+        String typeE = this.jTFTypeEmpleado.getText();
+        switch(typeE){
+            case "almacen": typeE = "'almacen', 1, 0, 0, 0, 0";     break;
+            case "administracion": typeE = "'administracion', 0, 1, 0, 0, 0";  break;
+            case "direccionG":  typeE = "'direccion', 0, 0, 1, 0, 0";  break;
+            case "ventas":   typeE = "'ventas', 0, 0, 0, 1, 0";  break;
+            case "compras":  typeE = "'compras', 0, 0, 0, 0, 1";  break;
         }
+        
+        String sqlInsertar="insert into empleado values (" + idEmpleado + ", '" + nameE + "', '" + lastNameE + "', " + horario + ", '" + emailE  + "',  '" + dateContrato + "', " + typeE + ");";
+        
+        int validacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas insertar este registro?", "Confirmar insersion registro", JOptionPane.YES_NO_OPTION);
+        if(validacion == JOptionPane.YES_OPTION) {
+        
+            try{
+                con=conect.getConnection();
+                st=con.createStatement();
+                con.setAutoCommit(false);
+                st.addBatch(sqlInsertar);
+                st.executeBatch();
+                con.commit();
+                con.setAutoCommit(true);
+            
+                JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+                
+               this.actualizacionTablaUser(0, this.idUser);
+            
+ 
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            }  finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+            } 
+        
+        } else {    System.out.println("Opcion cancelada por el usuario");  }
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jTableEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpleadosMouseClicked
@@ -428,31 +459,57 @@ public class JFEmpleados extends javax.swing.JFrame {
         this.jTFHorario.setText("");
         this.jTFEmail.setText("");
         this.jTFDateContrato.setText("");
+        this.jTFTypeEmpleado.setText("");
         
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBottonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBottonUpdateActionPerformed
-        int fila = this.jTableEmpleados.getSelectedRow();
-       
-        String nameP = this.jTFNombreE.getText();
-        String description = this.jTFLastNameEmp.getText();
-        int idProducto = Integer.parseInt(this.jTFidEmpleado.getText());
+        int idEmpleado = Integer.parseInt( this.jTFidEmpleado.getText());
+        String nameE = this.jTFNombreE.getText();
+        String lastNameE = this.jTFLastNameEmp.getText();
+        //cast colocado
+        int horario = Integer.parseInt(this.jTFHorario.getText());
+        String emailE = this.jTFEmail.getText();
         
-        double precioCompra = Double.parseDouble(this.jTFHorario.getText());
-        double precioVenta = Double.parseDouble(this.jTFEmail.getText());
-        int cantidad = Integer.parseInt(this.jTFDateContrato.getText());
-        String sql = "update producto set NombreP = '" + nameP + "',  Descripcion = '" + description + "', PrecioCompra = " + precioCompra + ", PrecioVenta = " + precioVenta + ", Cantidad = " +  cantidad + " where idProducto = " + idProducto + ";"; 
-        
-        try{
-            con = conect.getConnection();
-            st = con.createStatement();
-            st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Registro actualizado con exito");
-        
-        
-        } catch(SQLException e){
-            System.out.println(" El error es " + e);
+        String dateContrato = this.jTFDateContrato.getText();
+        String typeE = this.jTFTypeEmpleado.getText();
+        switch(typeE){
+            case "almacen": typeE = "'almacen', almacen = 1, administracion = 0, direccionG = 0, ventas =  0, compras = 0";     break;
+            case "administracion": typeE = "'administracion',  almacen = 0, administracion = 1, direccionG = 0, ventas =  0, compras = 0";  break;
+            case "direccionG":  typeE = "'direccion',  almacen = 0, administracion = 0, direccionG = 1, ventas =  0, compras = 0";  break;
+            case "ventas":   typeE = "'ventas',  almacen = 0, administracion = 0, direccionG = 0, ventas =  1, compras = 0";  break;
+            case "compras":  typeE = "'compras',  almacen = 0, administracion = 0, direccionG = 0, ventas =  0, compras = 1";  break;
         }
+        
+        String sqlUpdate = "update empleado set NombreE = '" + nameE + "',  ApellidoE = '" + lastNameE + "', Horario = " + horario + ", Email  = '" + emailE + "', FechaContrato = '" + dateContrato + "', tipoEmpleado = " +   typeE + " where idEmpleado = " + idEmpleado + ";"; 
+        
+        int validacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas actualizar este registro?", "Confirmar actualización del registro", JOptionPane.YES_NO_OPTION);
+        
+        if(validacion == JOptionPane.YES_OPTION) {
+            try{
+                con = conect.getConnection();
+                con.setAutoCommit(false);
+                
+                st = con.createStatement();
+                st.executeUpdate(sqlUpdate);
+                
+                con.commit();
+                con.setAutoCommit(true);
+               
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
+        
+                this.actualizacionTablaUser(2, this.idUser);
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            } finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+            } 
+        
+        } else {    System.out.println("Opcion cancelada por el usuario");  }
         
         
     }//GEN-LAST:event_jBottonUpdateActionPerformed
@@ -479,7 +536,45 @@ public class JFEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_jBExitActionPerformed
 
     private void jBEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarEmpleadoActionPerformed
-        // TODO add your handling code here:
+       
+        int idE = Integer.parseInt(this.jTFidEmpleado.getText());
+        
+        String sqlDelete = "delete from empleado where idEmpleado = " + idE + ";" ;
+        
+        int option = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el registro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+       
+        if (option == JOptionPane.YES_OPTION) {
+          
+            try{
+                con=conect.getConnection();
+                st=con.createStatement();
+                con.setAutoCommit(false);
+                st.addBatch(sqlDelete);
+                st.executeBatch();
+                con.commit();
+                con.setAutoCommit(true);
+            
+                JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+                
+                this.actualizacionTablaUser(1, this.idUser);
+            } catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            } finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar la conexión: " + e);
+                }
+            } 
+            
+        } else {
+           System.out.println("Opcion cancelada por el usuario");
+       
+       }
+        
+        
     }//GEN-LAST:event_jBEliminarEmpleadoActionPerformed
 
     /**
