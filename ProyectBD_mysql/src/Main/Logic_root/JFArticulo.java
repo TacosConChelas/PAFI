@@ -35,7 +35,7 @@ public class JFArticulo extends javax.swing.JFrame {
     }
     
     public void showProductos(){
-        System.out.println("Entre al metodo");
+        //System.out.println("Entre al metodo");
         
         
         for (int i = 0; i < this.jTProductos.getRowCount(); i++){
@@ -93,7 +93,7 @@ public class JFArticulo extends javax.swing.JFrame {
                 break;
                 
             case 3: 
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visalizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
                 break;
             default:     System.out.println("Sucedio un error en la insercion de la ultima accion realizada en la tabla de usuarios");
                 break;
@@ -509,7 +509,7 @@ public class JFArticulo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFidProductActionPerformed
 
     private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed
-        System.exit(0);
+        this.setVisible(false);
     }//GEN-LAST:event_jBExitActionPerformed
 
     private void jBEliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarPActionPerformed

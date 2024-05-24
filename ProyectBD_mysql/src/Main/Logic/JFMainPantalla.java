@@ -3,18 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Main.Logic;
-
+    
 /**
  *
  * @author TheOneAboveAll
  */
 public class JFMainPantalla extends javax.swing.JFrame {
-
+    public int idU;
     /**
      * Creates new form jFMainPantalla
      */
-    public JFMainPantalla() {
+    public JFMainPantalla(int idu) {
         initComponents();
+        
+        this.idU = idu;
+        System.out.println(this.idU);
     }
 
     /**
@@ -45,6 +48,11 @@ public class JFMainPantalla extends javax.swing.JFrame {
         jButton1.setText("Mostrar ordenes de venta");
 
         jButton2.setText("Productos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Detallar venta");
 
@@ -95,6 +103,13 @@ public class JFMainPantalla extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFArticulo1 articulos = new JFArticulo1(this.idU);
+        articulos.setVisible(true);
+        System.out.println(this.idU);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -158,7 +158,7 @@ public class JFShowUsers extends javax.swing.JFrame {
             modeloOrdenes.removeRow(i);
             i = i - 1;
         }
-        String sql1 = "select idUser, ultimaConeccion from users;";
+        String sql1 = "select idUser, dateLastActualizacion, lastAction, tablaActualizada from users;";
        
         try{
             con = conect.getConnection();
@@ -166,11 +166,13 @@ public class JFShowUsers extends javax.swing.JFrame {
             rs= st.executeQuery(sql1);
             //rs2 = st.executeQuery(sql2);
             
-            Object[] user = new Object[2];
+            Object[] user = new Object[4];
             modeloOrdenes = (DefaultTableModel)this.jTableUsers.getModel();
             while(rs.next()){
                 user[0] = rs.getInt("idUser");
-                user[1] = rs.getString("ultimaConeccion");
+                user[1] = rs.getString("dateLastActualizacion");
+                user[2] = rs.getString("lastAction");
+                user[3] = rs.getString("tablaActualizada");
                 
                 modeloOrdenes.addRow(user);  
                
@@ -200,21 +202,23 @@ public class JFShowUsers extends javax.swing.JFrame {
             Paragraph titulo = new Paragraph();
             titulo.setAlignment(Paragraph.HEADER);
             titulo.setFont(FontFactory.getFont("Arial", 15, Font.ITALIC, BaseColor.BLACK));
-            titulo.add("Vitacora de acceso");
+            titulo.add("Vitacora de acceso \n");
             
             
             documento.open();
             documento.add(titulo);
             
-            PdfPTable tabla = new PdfPTable(2);
+            PdfPTable tabla = new PdfPTable(4);
             tabla.addCell("idUser");
-            tabla.addCell("ultima Coneccion");
+            tabla.addCell("Ultima fecha de actualizacion");
+            tabla.addCell("Ultima accion");
+            tabla.addCell("Tabla actualizada");
             
             for (int i = 0; i < this.jTableUsers.getRowCount(); i++){
             modeloOrdenes.removeRow(i);
             i = i - 1;
             }
-            String sql1 = "select idUser, ultimaConeccion from users;";
+            String sql1 = "select idUser, dateLastActualizacion, lastAction, tablaActualizada from users;";
             
             try{
                 con = conect.getConnection();
@@ -226,7 +230,10 @@ public class JFShowUsers extends javax.swing.JFrame {
                 //modeloOrdenes = (DefaultTableModel)this.jTableUsers.getModel();
                 while(rs.next()){
                     tabla.addCell(String.valueOf(rs.getInt("idUser")));
-                    tabla.addCell(String.valueOf(rs.getString("ultimaConeccion")));
+                    tabla.addCell(String.valueOf(rs.getString("dateLastActualizacion")));
+                    tabla.addCell(String.valueOf(rs.getString("lastAction")));
+                    tabla.addCell(String.valueOf(rs.getString("tablaActualizada")));
+                    
                     
                 }
                 //this.jTableUsers.setModel(modeloOrdenes);

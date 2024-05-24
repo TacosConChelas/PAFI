@@ -11,8 +11,10 @@ package Main.Logic_root;
  */
 import Main.Conexion;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,11 +25,101 @@ public class JFEmpleados extends javax.swing.JFrame {
     Connection con;
     Statement st;
     DefaultTableModel modeloArticulo;
+    ResultSet rs;
+    public int idUser = 9999;
     
     public JFEmpleados() {
         initComponents();
     }
-
+    
+    public void showEmpleados(){
+        //System.out.println("Entre al metodo");
+        
+        
+        for (int i = 0; i < this.jTableEmpleados.getRowCount(); i++){
+            modeloArticulo.removeRow(i);
+            i = i - 1;
+        }
+        String sql = "select idEmpleado, NombreE, ApellidoE, Horario, Email, FechaContrato, tipoEmpleado from empleado;" ;
+        try{
+            con = conect.getConnection();
+            st = con.createStatement();
+            rs= st.executeQuery(sql);
+            
+            
+            Object[] detallev = new Object[7];
+            modeloArticulo = (DefaultTableModel)this.jTableEmpleados.getModel();
+            while(rs.next()){
+                detallev[0] = rs.getInt("idEmpleado");
+                detallev[1] = rs.getString("NombreE");
+                detallev[2] = rs.getString("ApellidoE");
+                detallev[3] = rs.getInt("Horario");
+                detallev[4] = rs.getString("Email");
+                detallev[5] = rs.getString("FechaContrato");
+                detallev[5] = rs.getString("tipoEmpleado");
+                
+                modeloArticulo.addRow(detallev);    
+            }
+            this.jTableEmpleados.setModel(modeloArticulo);
+            
+            
+            //JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+            
+        }catch(SQLException e){
+            System.out.println(" El error es " + e);
+        }
+        
+        
+    }
+    public void actualizacionTablaUsers_AfterAction(int option){
+        /*
+            Metodo usado para actualizar la tabla usuarios dependiendo de la ultima accion que estos hayan realizado
+        */
+        Date fechaD = new Date();
+        String sqlVitacoraU = "";
+        switch(option){
+            case 0: 
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Insercion de nuevos Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                break;
+                
+            case 1:
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Eliminacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                break;
+            
+            case 2:
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Actualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                break;
+                
+            case 3: 
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                break;
+            default:     System.out.println("Sucedio un error en la insercion de la ultima accion realizada en la tabla de usuarios");
+                break;
+        }
+        
+       try{
+                con = conect.getConnection();
+                con.setAutoCommit(false);
+                
+                st = con.createStatement();
+                st.executeUpdate(sqlVitacoraU);
+                
+                con.commit();
+                con.setAutoCommit(true);
+               
+                //JOptionPane.showMessageDialog(null, "Registro exitoso");
+                System.out.println("Se actualizo correctamente la abla users");
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            } finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+            } 
+        
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -56,7 +148,7 @@ public class JFEmpleados extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableEmpleados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,15 +265,15 @@ public class JFEmpleados extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                            .addComponent(jBEliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jBEliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jBottonUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBExit))
-                            .addComponent(jBMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jBExit)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -216,27 +308,27 @@ public class JFEmpleados extends javax.swing.JFrame {
                     .addComponent(jTFTypeEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBEliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBMostrar)
-                    .addComponent(jBEliminarEmpleado))
+                    .addComponent(jBEliminar)
+                    .addComponent(jBMostrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBEliminarEmpleado)
                     .addComponent(jBottonUpdate)
-                    .addComponent(jBExit)
-                    .addComponent(jBAgregar))
+                    .addComponent(jBExit))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBAgregar)
                 .addGap(22, 22, 22))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Empleados"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "idEmpleado", "NombreE", "ApellidoE", "Horario", "Email", "FechaContrato", "tipoEmpleado"
+                "idEmpleado", "Nombre", "Apellido", "Horario", "Email", "FechaContrato", "Tipo Empleado"
             }
         ) {
             Class[] types = new Class [] {
@@ -247,13 +339,13 @@ public class JFEmpleados extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                jTableEmpleadosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getAccessibleContext().setAccessibleName("");
+        jScrollPane1.setViewportView(jTableEmpleados);
+        jTableEmpleados.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -315,16 +407,17 @@ public class JFEmpleados extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBAgregarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int fila = this.jTable1.getSelectedRow();
-        this.jTFidEmpleado.setText(this.jTable1.getValueAt(fila, 0).toString());
-        this.jTFNombreE.setText(this.jTable1.getValueAt(fila, 1).toString());
-        this.jTFLastNameEmp.setText(this.jTable1.getValueAt(fila, 2).toString());
-        this.jTFHorario.setText(this.jTable1.getValueAt(fila, 3).toString());
-        this.jTFEmail.setText(this.jTable1.getValueAt(fila, 4).toString());
-        this.jTFDateContrato.setText(this.jTable1.getValueAt(fila, 3).toString());
+    private void jTableEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpleadosMouseClicked
+        int fila = this.jTableEmpleados.getSelectedRow();
+        this.jTFidEmpleado.setText(this.jTableEmpleados.getValueAt(fila, 0).toString());
+        this.jTFNombreE.setText(this.jTableEmpleados.getValueAt(fila, 1).toString());
+        this.jTFLastNameEmp.setText(this.jTableEmpleados.getValueAt(fila, 2).toString());
+        this.jTFHorario.setText(this.jTableEmpleados.getValueAt(fila, 3).toString());
+        this.jTFEmail.setText(this.jTableEmpleados.getValueAt(fila, 4).toString());
+        this.jTFDateContrato.setText(this.jTableEmpleados.getValueAt(fila, 3).toString());
+        this.jTFTypeEmpleado.setText(this.jTableEmpleados.getValueAt(fila, 6).toString());
         
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_jTableEmpleadosMouseClicked
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
@@ -339,7 +432,7 @@ public class JFEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBottonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBottonUpdateActionPerformed
-        int fila = this.jTable1.getSelectedRow();
+        int fila = this.jTableEmpleados.getSelectedRow();
        
         String nameP = this.jTFNombreE.getText();
         String description = this.jTFLastNameEmp.getText();
@@ -366,6 +459,7 @@ public class JFEmpleados extends javax.swing.JFrame {
 
     private void jBMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarActionPerformed
         // TODO add your handling code here:
+        this.showEmpleados();
         
         
         
@@ -448,6 +542,6 @@ public class JFEmpleados extends javax.swing.JFrame {
     private javax.swing.JTextField jTFNombreE;
     private javax.swing.JTextField jTFTypeEmpleado;
     private javax.swing.JTextField jTFidEmpleado;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableEmpleados;
     // End of variables declaration//GEN-END:variables
 }

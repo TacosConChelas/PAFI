@@ -116,16 +116,16 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jBAgregar" pref="189" max="32767" attributes="0"/>
                               <Component id="jBEliminarEmpleado" max="32767" attributes="0"/>
+                              <Component id="jBEliminar" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jBMostrar" min="-2" pref="196" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="jBottonUpdate" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBExit" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jBMostrar" max="32767" attributes="0"/>
-                              <Component id="jBEliminar" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -172,18 +172,18 @@
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jBEliminar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jBEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBMostrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBEliminarEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jBEliminarEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBottonUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBExit" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jBAgregar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -345,21 +345,26 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="jTableEmpleados">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="7" rowCount="0">
                     <Column editable="true" title="idEmpleado" type="java.lang.Integer"/>
-                    <Column editable="true" title="NombreE" type="java.lang.String"/>
-                    <Column editable="true" title="ApellidoE" type="java.lang.String"/>
+                    <Column editable="true" title="Nombre" type="java.lang.String"/>
+                    <Column editable="true" title="Apellido" type="java.lang.String"/>
                     <Column editable="true" title="Horario" type="java.lang.Integer"/>
                     <Column editable="true" title="Email" type="java.lang.String"/>
                     <Column editable="true" title="FechaContrato" type="java.lang.String"/>
-                    <Column editable="true" title="tipoEmpleado" type="java.lang.String"/>
+                    <Column editable="true" title="Tipo Empleado" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -400,7 +405,7 @@
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
               </AccessibilityProperties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableEmpleadosMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>

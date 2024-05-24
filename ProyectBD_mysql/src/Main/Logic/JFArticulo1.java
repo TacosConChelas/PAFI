@@ -32,6 +32,7 @@ public class JFArticulo1 extends javax.swing.JFrame {
     
     public JFArticulo1(int idu) {
         initComponents();
+        this.idUser = idu;
         
     }
     
@@ -81,20 +82,13 @@ public class JFArticulo1 extends javax.swing.JFrame {
         Date fechaD = new Date();
         String sqlVitacoraU = "";
         switch(option){
-            case 0: 
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Insercion de nuevos Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
-                break;
-                
-            case 1:
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Eliminacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
-                break;
             
             case 2:
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Actualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Actualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = " + this.idUser + ";";
                 break;
                 
             case 3: 
-                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visalizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = 9999;";
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Visualizacion de Articulos', tablaActualizada = 'Tabla de Articulos' where idUser = "  + this.idUser + ";";
                 break;
             default:     System.out.println("Sucedio un error en la insercion de la ultima accion realizada en la tabla de usuarios");
                 break;
@@ -441,7 +435,7 @@ public class JFArticulo1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFidProductActionPerformed
 
     private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed
-        System.exit(0);
+        this.setVisible(false);
     }//GEN-LAST:event_jBExitActionPerformed
 
     /**
