@@ -45,6 +45,7 @@ public class JFUserRegister extends javax.swing.JFrame {
         jTFUserId = new javax.swing.JTextField();
         jPFUserPwd = new javax.swing.JPasswordField();
         jBRegistrarU = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +74,13 @@ public class JFUserRegister extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -95,6 +103,10 @@ public class JFUserRegister extends javax.swing.JFrame {
                         .addGap(199, 199, 199)
                         .addComponent(jBRegistrarU, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(140, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +121,9 @@ public class JFUserRegister extends javax.swing.JFrame {
                 .addComponent(jPFUserPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(jBRegistrarU)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,7 +148,7 @@ public class JFUserRegister extends javax.swing.JFrame {
         
         String sqlBusqueda = "select * from users where idUser = " + idUser + ";";
        
-        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "', '" + fechaD.toString() + "' );";
+        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "', '" + fechaD.toString() + "', 'Creacion del perfil de usuario', null);";
         
         try{
             con = conect.getConnection();
@@ -168,6 +182,11 @@ public class JFUserRegister extends javax.swing.JFrame {
          
        
     }//GEN-LAST:event_jBRegistrarUActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,6 +225,7 @@ public class JFUserRegister extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBRegistrarU;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPFUserPwd;

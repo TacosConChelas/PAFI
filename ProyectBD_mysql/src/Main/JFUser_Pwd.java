@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 
@@ -175,6 +176,34 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBRegistrarseActionPerformed
 
+    public void ingresoUsuario(int idU){
+        Date fechaD = new Date();
+        String sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Ingreso del usuario al sistema', tablaActualizada = null where idUser = " + idU + ";";
+    
+        try{
+                con = conect.getConnection();
+                con.setAutoCommit(false);
+                
+                st = con.createStatement();
+                st.executeUpdate(sqlVitacoraU);
+                
+                con.commit();
+                con.setAutoCommit(true);
+               
+                //JOptionPane.showMessageDialog(null, "Registro exitoso");
+                System.out.println("Se actualizo correctamente la tabla users");
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            } finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+            } 
+    }
+            
+            
     private void jBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarActionPerformed
         int idUser = Integer.parseInt(new String(this.jPF_IdUser.getPassword()));
         String pwdU = new String(this.jPFPwdUser.getPassword());
@@ -200,11 +229,15 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                         JFMainPantalla_Root mainPantallRoot = new JFMainPantalla_Root();
                         mainPantallRoot.setVisible(true);
                         mainPantallRoot.setLocationRelativeTo(null);
+                        
+                        this.ingresoUsuario(9999);
                     
                     } else {
                         JFMainPantalla mainPantalla = new JFMainPantalla(idUser);
                         mainPantalla.setVisible(true);
                         mainPantalla.setLocationRelativeTo(null);
+                        
+                        this.ingresoUsuario(idUser);
                     }
                     
                 } else {

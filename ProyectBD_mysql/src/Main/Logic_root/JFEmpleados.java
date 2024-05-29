@@ -100,7 +100,7 @@ public class JFEmpleados extends javax.swing.JFrame {
                 break;
         }
         
-       try{
+        try{
                 con = conect.getConnection();
                 con.setAutoCommit(false);
                 
@@ -111,7 +111,7 @@ public class JFEmpleados extends javax.swing.JFrame {
                 con.setAutoCommit(true);
                
                 //JOptionPane.showMessageDialog(null, "Registro exitoso");
-                System.out.println("Se actualizo correctamente la abla users");
+                System.out.println("Se actualizo correctamente la tabla users");
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
                 

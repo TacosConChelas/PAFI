@@ -34,12 +34,13 @@ import javax.swing.table.DefaultTableModel;
  * @author TheOneAboveAll
  */
 public class JFShowOrdenes extends javax.swing.JFrame {
-    
+
     Conexion conect = new Conexion();
     Connection con;
     Statement st;
     DefaultTableModel modeloOrdenes;
     ResultSet rs;
+
     /**
      * Creates new form JFShowOrdenes
      */
@@ -47,39 +48,35 @@ public class JFShowOrdenes extends javax.swing.JFrame {
         initComponents();
         this.showOrdenes();
     }
-    
-    public void showOrdenes(){
+
+    public void showOrdenes() {
         //System.out.println("Entre al metodo");
-        for (int i = 0; i < this.jTShowOrden.getRowCount(); i++){
+        for (int i = 0; i < this.jTShowOrden.getRowCount(); i++) {
             modeloOrdenes.removeRow(i);
             i = i - 1;
         }
         String sql = "select * from detallev";
-        try{
+        try {
             con = conect.getConnection();
             st = con.createStatement();
-            rs= st.executeQuery(sql);
-            
-            
+            rs = st.executeQuery(sql);
+
             Object[] detallev = new Object[4];
-            modeloOrdenes = (DefaultTableModel)this.jTShowOrden.getModel();
-            while(rs.next()){
+            modeloOrdenes = (DefaultTableModel) this.jTShowOrden.getModel();
+            while (rs.next()) {
                 detallev[0] = rs.getInt("idProducto");
                 detallev[1] = rs.getInt("folio");
                 detallev[2] = rs.getFloat("cantidad");
                 detallev[3] = rs.getFloat("subtotal");
-                modeloOrdenes.addRow(detallev);    
+                modeloOrdenes.addRow(detallev);
             }
             this.jTShowOrden.setModel(modeloOrdenes);
-            
-            
+
             //JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
-            
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(" El error es " + e);
         }
-        
-        
+
     }
 
     /**
@@ -177,85 +174,75 @@ public class JFShowOrdenes extends javax.swing.JFrame {
     private void jBImprimirPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImprimirPDFActionPerformed
         //Se crea un reporte de tipo pdf para el proyecto
         Document documento = new Document(PageSize.A4.rotate(), 10f, 10, 100f, 0f);
-        
-        try{
+
+        try {
             String ruta = System.getProperty("user.home");
             PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Downloads/Productos.pdf"));
             Image logo = Image.getInstance("src/Img/img1.jpg");
-            
-            
-            
+
             logo.scaleToFit(100, 100);
             logo.setAlignment(Chunk.HEADER);
-            
-            
+
             Paragraph titulo = new Paragraph();
             titulo.setAlignment(Paragraph.HEADER);
             titulo.setFont(FontFactory.getFont("Arial", 15, Font.ITALIC, BaseColor.BLACK));
             titulo.add("Un perrito bonito y elegante ");
-            
+
             Paragraph texto = new Paragraph();
             titulo.setAlignment(Paragraph.HEADER);
             titulo.setFont(FontFactory.getFont("Arial", 10, Font.ITALIC, BaseColor.BLACK));
             titulo.add("todo bonito todo hermoso ");
-            
-            
+
             documento.open();
             documento.add(logo);
             documento.add(titulo);
             documento.add(texto);
-            
+
             PdfPTable tabla = new PdfPTable(4);
             tabla.addCell("idProducto");
             tabla.addCell("folio");
             tabla.addCell("cantidad");
             tabla.addCell("subtotal");
-            
-            for (int i = 0; i < this.jTShowOrden.getRowCount(); i++){
-            modeloOrdenes.removeRow(i);
-            i = i - 1;
+
+            for (int i = 0; i < this.jTShowOrden.getRowCount(); i++) {
+                modeloOrdenes.removeRow(i);
+                i = i - 1;
             }
             String sql = "select * from detallev";
-            try{
+            try {
                 con = conect.getConnection();
                 st = con.createStatement();
-                rs= st.executeQuery(sql);
-            
-            
+                rs = st.executeQuery(sql);
+
                 //Object[] detallev = new Object[4];
-                modeloOrdenes = (DefaultTableModel)this.jTShowOrden.getModel();
-                while(rs.next()){
+                modeloOrdenes = (DefaultTableModel) this.jTShowOrden.getModel();
+                while (rs.next()) {
                     tabla.addCell(String.valueOf(rs.getInt("idProducto")));
-                    tabla.addCell(String.valueOf(rs.getInt("folio"))); 
-                    tabla.addCell(String.valueOf(rs.getFloat("cantidad"))); 
+                    tabla.addCell(String.valueOf(rs.getInt("folio")));
+                    tabla.addCell(String.valueOf(rs.getFloat("cantidad")));
                     tabla.addCell(String.valueOf(rs.getFloat("subtotal")));
                     //modeloOrdenes.addRow(detallev);    
                 }
                 //this.jTShowOrden.setModel(modeloOrdenes);
-            
-            
+
                 //JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
-            
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(" El error es " + e);
             }
-            
-            
+
             documento.add(tabla);
-            
+
             documento.close();
-        } catch (DocumentException e){
+        } catch (DocumentException e) {
             System.out.println("El error es " + e);
-            
-       
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JFShowOrdenes.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(JFShowOrdenes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_jBImprimirPDFActionPerformed
 
     /**

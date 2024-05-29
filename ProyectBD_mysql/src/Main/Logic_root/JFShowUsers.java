@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,8 +32,8 @@ import javax.swing.table.DefaultTableModel;
  * @author TheOneAboveAll
  */
 public class JFShowUsers extends javax.swing.JFrame {
-
-     
+    //mysqldump -u root -p nombreBD > C:\Respaldo\respaldo.sql 
+    
     Conexion conect = new Conexion();
     Connection con;
     Statement st;
@@ -44,7 +45,8 @@ public class JFShowUsers extends javax.swing.JFrame {
      */
     public JFShowUsers() {
         initComponents();
-        this.showUsers();
+        this.showUsers(); 
+        //Al momento de ejecutarse el construtor de la case de van a mostrar en los campos de la tabla los usuarios disponibles 
     }
 
     /**
@@ -62,6 +64,7 @@ public class JFShowUsers extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jBCreatePDF = new javax.swing.JButton();
         jBShowUsers = new javax.swing.JButton();
+        jBBackupDataBase = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +106,13 @@ public class JFShowUsers extends javax.swing.JFrame {
             }
         });
 
+        jBBackupDataBase.setText("Respaldar la base de datos");
+        jBBackupDataBase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBackupDataBaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,13 +120,15 @@ public class JFShowUsers extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBShowUsers))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
-                        .addComponent(jBCreatePDF)))
+                        .addComponent(jBCreatePDF))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jBBackupDataBase)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBShowUsers)))
                 .addGap(44, 44, 44))
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,9 +138,11 @@ public class JFShowUsers extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jBCreatePDF))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBShowUsers)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBShowUsers)
+                    .addComponent(jBBackupDataBase))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,19 +168,20 @@ public class JFShowUsers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void showUsers(){
+       
         for (int i = 0; i < this.jTableUsers.getRowCount(); i++){
             modeloOrdenes.removeRow(i);
             i = i - 1;
         }
         String sql1 = "select idUser, dateLastActualizacion, lastAction, tablaActualizada from users;";
-       
+        //Se guarda la seleccion en lenguaje sql para mostrar a todos los usuarios y mostrar todo, a esepcion de su contraseña de cada uno
         try{
             con = conect.getConnection();
             st = con.createStatement();
             rs= st.executeQuery(sql1);
             //rs2 = st.executeQuery(sql2);
             
-            Object[] user = new Object[4];
+            Object[] user = new Object[4]; //Se crea un objeto del mismo tamaño al de la tabla de retorno de la busqueda que estamos haciendo 
             modeloOrdenes = (DefaultTableModel)this.jTableUsers.getModel();
             while(rs.next()){
                 user[0] = rs.getInt("idUser");
@@ -191,7 +206,7 @@ public class JFShowUsers extends javax.swing.JFrame {
     }
     
     private void jBCreatePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCreatePDFActionPerformed
-        // TODO add your handling code here:
+        // CREACION DE LA VITACORA DE ACCESO
         Document documento = new Document(PageSize.A4.rotate(), 10f, 10, 100f, 0f);
         try{
             String ruta = System.getProperty("user.home");
@@ -244,6 +259,8 @@ public class JFShowUsers extends javax.swing.JFrame {
             documento.add(tabla);
             documento.close();
             JOptionPane.showMessageDialog(null, "Se guardó en la ruta " + ruta + ruta1);
+            
+            this.actualizacionTablaUser(0); //SE actualiza la tabla de usuarios para reflejar que el usuario root lo ultimo que realizo fue una itacora de acceso
         } catch (FileNotFoundException ex) {
                 Logger.getLogger(JFShowUsers.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException e){
@@ -265,6 +282,100 @@ public class JFShowUsers extends javax.swing.JFrame {
         
         this.showUsers();
     }//GEN-LAST:event_jBShowUsersActionPerformed
+     public void actualizacionTablaUser(int option){
+        /*
+            Metodo usado para actualizar la tabla usuarios dependiendo de la ultima accion que estos hayan realizado
+        */
+        Date fechaD = new Date();
+        String sqlVitacoraU = "";
+        switch(option){
+            case 0: 
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Creacion de vitacora de acceso', tablaActualizada = null where idUser =  9999;";
+                break;
+                
+            case 1:
+                sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Creación de respaldo', tablaActualizada = null where idUser = 9999;";
+                break;
+            
+            default:     System.out.println("Sucedio un error en la insercion de la ultima accion realizada en la tabla de usuarios");
+                break;
+        }
+        
+        try{
+                con = conect.getConnection();
+                con.setAutoCommit(false);
+                
+                st = con.createStatement();
+                st.executeUpdate(sqlVitacoraU);
+                
+                con.commit();
+                con.setAutoCommit(true);
+               
+                //JOptionPane.showMessageDialog(null, "Registro exitoso");
+                System.out.println("Se actualizo correctamente la tabla users");
+            }catch(SQLException e){
+                System.out.println(" El error es " + e);
+                
+            } finally {
+                try {
+                    if (st != null) st.close();
+                    if (con != null) con.close();
+                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+            } 
+        
+    }
+     
+    public void backupDataBase(String backupDB){
+        //Se escribe la ruta en dodne se va a guardar el respaldo de la bd que va a ser recibida como parametro dentro de esta
+        
+        String user = "root"; //Se coloca el usuario que tiene los permisos en el mysql para realizar el respaldo 
+        String pwd = "12345";
+        String database = "proyectobd";
+        String commandRespaldo = String.format("mysqldump -u %s -p%s %s -r %s", user, pwd, database, backupDB);
+        
+        try {
+            // Ejecutamos el comando en la terminal
+            Process runtimeProcess = Runtime.getRuntime().exec(commandRespaldo);
+            int processComplete = runtimeProcess.waitFor();
+        
+            // Verificamos si el proceso fue exitoso
+            if (processComplete == 0) {
+                JOptionPane.showMessageDialog(this, "Respaldo realizado con éxito.");
+                this.actualizacionTablaUser(1); //Se actualiza la tabla de usuarios para reflejar que la ultima accion de root fue crear un respaldo
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al realizar el respaldo.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            }
+    
+    } 
+    
+    private void jBBackupDataBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBackupDataBaseActionPerformed
+        
+        int validacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas respaldar la base de datos?", "Confirmar confirmar respaldo", JOptionPane.YES_NO_OPTION);
+        if(validacion == JOptionPane.YES_OPTION) {
+            JTextField fileNameField = new JTextField("C:\\RespaldosSQL\\respaldo.sql");
+            /*
+            Este respaldo debe de ir en .sql por lo que le colocamos un .sql para que el usuario solo tenga que ingresar el nombre de este archivo,
+            en mi caso yo tengo una carpeta llamada \RespaldosSQL en mi disco C, si esta carpeta no está en el equipo del escritorio esta debera de ser cambiada
+            */
+            Object[] message = {
+                "Ingrese el nombre del archivo de respaldo:", fileNameField
+            };
+
+            int option = JOptionPane.showConfirmDialog(this, message, "Guardar Respaldo", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                String backupPath = fileNameField.getText();
+            
+                backupDataBase(backupPath); // Llamar al método de respaldo con la ruta ingresada
+            }
+        
+        } else {    System.out.println("Opcion cancelada por el usuario");  }
+  
+    }//GEN-LAST:event_jBBackupDataBaseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,6 +413,7 @@ public class JFShowUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBBackupDataBase;
     private javax.swing.JButton jBCreatePDF;
     private javax.swing.JButton jBShowUsers;
     private javax.swing.JLabel jLabel1;

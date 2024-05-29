@@ -24,15 +24,25 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="26" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jBShowUsers" min="-2" pref="694" max="-2" attributes="0"/>
-                  <Component id="jBShowOrdenes" min="-2" pref="694" max="-2" attributes="0"/>
-                  <Component id="jBNewMateriales" min="-2" pref="694" max="-2" attributes="0"/>
-                  <Component id="jBDetallarVenta" min="-2" pref="694" max="-2" attributes="0"/>
-                  <Component id="jBEmpleados" min="-2" pref="694" max="-2" attributes="0"/>
-                  <Component id="jBArticulos" min="-2" pref="694" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="694" max="-2" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                      <Component id="jBEmpleados" min="-2" pref="694" max="-2" attributes="0"/>
+                      <Component id="jBArticulos" min="-2" pref="694" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jBDetallarVenta" min="-2" pref="341" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBNewMateriales" min="-2" pref="346" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jBShowOrdenes" min="-2" pref="694" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" pref="694" max="-2" attributes="0"/>
+                          <Component id="jBShowUsers" alignment="1" min="-2" pref="694" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
@@ -46,16 +56,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBEmpleados" min="-2" pref="57" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jBDetallarVenta" min="-2" pref="55" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jBNewMateriales" min="-2" pref="60" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jBNewMateriales" pref="60" max="32767" attributes="0"/>
+                  <Component id="jBDetallarVenta" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBShowOrdenes" min="-2" pref="56" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jBShowUsers" min="-2" pref="56" max="-2" attributes="0"/>
-              <EmptySpace pref="99" max="32767" attributes="0"/>
+              <EmptySpace pref="166" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
