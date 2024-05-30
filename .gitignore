@@ -3,3 +3,5 @@
 /ProyectBD_mysql/build/
 
 *.class
+/ElMote_Elian/nbproject/private/
+/ElMote_Elian/build/
