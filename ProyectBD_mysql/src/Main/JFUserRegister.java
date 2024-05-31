@@ -23,6 +23,8 @@ public class JFUserRegister extends javax.swing.JFrame {
     Statement st;
     DefaultTableModel modeloArticulo;
     ResultSet rs;
+    
+    VitacoraUser vitacora = new VitacoraUser();
     /**
      * Creates new form JFUserRegister
      */
@@ -148,7 +150,7 @@ public class JFUserRegister extends javax.swing.JFrame {
         
         String sqlBusqueda = "select * from users where idUser = " + idUser + ";";
        
-        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "', '" + fechaD.toString() + "', 'Creacion del perfil de usuario', null);";
+        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "');";
         
         try{
             con = conect.getConnection();
@@ -159,7 +161,9 @@ public class JFUserRegister extends javax.swing.JFrame {
             //Evaluacion si contiene alguna columna 
             if(! rs.next()){
                 st.executeUpdate(sqlInsert);
-                JOptionPane.showMessageDialog(null, "registro exitoso");
+                
+                this.vitacora.vitacoraUsuarioSistema(idUser, 0);
+                JOptionPane.showMessageDialog(null, "registro del usuario exitoso");
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Lo sentimos pero este usuario y/o contraseña ya existe");

@@ -44,6 +44,7 @@ public class InicioSesion extends javax.swing.JFrame {
         contrasena = new javax.swing.JTextField();
         ingresar = new javax.swing.JButton();
         registrarse = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +70,10 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Inicio de sesión");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -83,7 +88,8 @@ public class InicioSesion extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idU, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(idU, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(ingresar)
@@ -94,7 +100,9 @@ public class InicioSesion extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(idU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,7 +141,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarActionPerformed
        
-        int id =Integer.parseInt(idU.getText());
+        int id = Integer.parseInt(idU.getText());
         String contraseña = contrasena.getText(); 
         String sql = "select contraseña from usuario where idU = " + id + ";";
         
@@ -143,7 +151,7 @@ public class InicioSesion extends javax.swing.JFrame {
             rs= st.executeQuery(sql);
             System.out.println("Coneccion correcta");
         
-             if(rs.next()){
+            if(rs.next()){
                 String contraseñaBD = rs.getString("contraseña");
                 
                 if(contraseña.equals(contraseñaBD)){
@@ -159,9 +167,7 @@ public class InicioSesion extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Lo sentimos pero este usuario no existe");
             }
-        
-        
-        
+      
         } catch(SQLException e){
             System.out.println(" El error es " + e);
             
@@ -214,6 +220,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JButton ingresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton registrarse;
     // End of variables declaration//GEN-END:variables

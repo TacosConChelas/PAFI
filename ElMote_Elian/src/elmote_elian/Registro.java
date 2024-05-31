@@ -162,13 +162,6 @@ public class Registro extends javax.swing.JFrame {
         
         
         
-        
-        
-        
-        
-        
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

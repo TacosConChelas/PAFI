@@ -10,6 +10,7 @@ package Main.Logic_root;
  * @author josue
  */
 import Main.Conexion;
+import Main.VitacoraUser;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -27,6 +28,8 @@ public class JFEmpleados extends javax.swing.JFrame {
     DefaultTableModel modeloArticulo;
     ResultSet rs;
     public int idUser = 9999;
+    
+    VitacoraUser vitacora = new VitacoraUser(this.idUser);
     
     public JFEmpleados() {
         initComponents();
@@ -422,8 +425,8 @@ public class JFEmpleados extends javax.swing.JFrame {
             
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
                 
-               this.actualizacionTablaUser(0);
-            
+               //this.actualizacionTablaUser(0);
+               this.vitacora.vitacoraUsuarioEmpleados(0);
  
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
@@ -498,7 +501,8 @@ public class JFEmpleados extends javax.swing.JFrame {
                
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
         
-                this.actualizacionTablaUser(2);
+                //this.actualizacionTablaUser(2);
+                this.vitacora.vitacoraUsuarioEmpleados(2);
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
                 
@@ -518,7 +522,8 @@ public class JFEmpleados extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.showEmpleados();
         
-        this.actualizacionTablaUser(3);
+        //this.actualizacionTablaUser(3);
+        this.vitacora.vitacoraUsuarioEmpleados(3);
         
         
         
@@ -556,7 +561,8 @@ public class JFEmpleados extends javax.swing.JFrame {
             
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
                 
-                this.actualizacionTablaUser(1);
+                //this.actualizacionTablaUser(1);
+                this.vitacora.vitacoraUsuarioEmpleados(1);
             } catch(SQLException e){
                 System.out.println(" El error es " + e);
                 

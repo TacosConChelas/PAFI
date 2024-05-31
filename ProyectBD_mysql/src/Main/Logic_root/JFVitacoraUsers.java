@@ -5,6 +5,7 @@
 package Main.Logic_root;
 
 import Main.Conexion;
+import Main.VitacoraUser;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -31,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author TheOneAboveAll
  */
-public class JFShowUsers extends javax.swing.JFrame {
+public class JFVitacoraUsers extends javax.swing.JFrame {
     //mysqldump -u root -p nombreBD > C:\Respaldo\respaldo.sql 
     
     Conexion conect = new Conexion();
@@ -40,12 +41,15 @@ public class JFShowUsers extends javax.swing.JFrame {
     DefaultTableModel modeloOrdenes;
     ResultSet rs;
     
+    VitacoraUser vitacora = new VitacoraUser();
+    
     /**
      * Creates new form JFShowUsers
      */
-    public JFShowUsers() {
+    public JFVitacoraUsers() {
         initComponents();
         this.showUsers(); 
+        this.vitacora.vitacoraUsuarioSistema(9999, 3);
         //Al momento de ejecutarse el construtor de la case de van a mostrar en los campos de la tabla los usuarios disponibles 
     }
 
@@ -90,7 +94,7 @@ public class JFShowUsers extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Usuarios Disponibles");
+        jLabel1.setText("Vitacora de Usuarios");
 
         jBCreatePDF.setText("Generar vitácora de acceso en archivo PDF");
         jBCreatePDF.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +126,7 @@ public class JFShowUsers extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
                         .addComponent(jBCreatePDF))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -173,7 +177,7 @@ public class JFShowUsers extends javax.swing.JFrame {
             modeloOrdenes.removeRow(i);
             i = i - 1;
         }
-        String sql1 = "select idUser, dateLastActualizacion, lastAction, tablaActualizada from users;";
+        String sql1 = "select * from vitacora;";
         //Se guarda la seleccion en lenguaje sql para mostrar a todos los usuarios y mostrar todo, a esepcion de su contraseña de cada uno
         try{
             con = conect.getConnection();
@@ -184,7 +188,7 @@ public class JFShowUsers extends javax.swing.JFrame {
             Object[] user = new Object[4]; //Se crea un objeto del mismo tamaño al de la tabla de retorno de la busqueda que estamos haciendo 
             modeloOrdenes = (DefaultTableModel)this.jTableUsers.getModel();
             while(rs.next()){
-                user[0] = rs.getInt("idUser");
+                user[0] = rs.getInt("idUsuario");
                 user[1] = rs.getString("dateLastActualizacion");
                 user[2] = rs.getString("lastAction");
                 user[3] = rs.getString("tablaActualizada");
@@ -224,7 +228,7 @@ public class JFShowUsers extends javax.swing.JFrame {
             documento.add(titulo);
             
             PdfPTable tabla = new PdfPTable(4);
-            tabla.addCell("idUser");
+            tabla.addCell("idUsuario");
             tabla.addCell("Ultima fecha de actualizacion");
             tabla.addCell("Ultima accion");
             tabla.addCell("Tabla actualizada");
@@ -233,7 +237,7 @@ public class JFShowUsers extends javax.swing.JFrame {
             modeloOrdenes.removeRow(i);
             i = i - 1;
             }
-            String sql1 = "select idUser, dateLastActualizacion, lastAction, tablaActualizada from users;";
+            String sql1 = "select * from vitacora;";
             
             try{
                 con = conect.getConnection();
@@ -244,7 +248,7 @@ public class JFShowUsers extends javax.swing.JFrame {
          
                 //modeloOrdenes = (DefaultTableModel)this.jTableUsers.getModel();
                 while(rs.next()){
-                    tabla.addCell(String.valueOf(rs.getInt("idUser")));
+                    tabla.addCell(String.valueOf(rs.getInt("idUsuario")));
                     tabla.addCell(String.valueOf(rs.getString("dateLastActualizacion")));
                     tabla.addCell(String.valueOf(rs.getString("lastAction")));
                     tabla.addCell(String.valueOf(rs.getString("tablaActualizada")));
@@ -254,17 +258,19 @@ public class JFShowUsers extends javax.swing.JFrame {
                 //this.jTableUsers.setModel(modeloOrdenes);
               
             }catch(SQLException e){
-                System.out.println(" El error es " + e);
+                System.out.println(" El error es consulta sql " + e);
             }
             documento.add(tabla);
             documento.close();
             JOptionPane.showMessageDialog(null, "Se guardó en la ruta " + ruta + ruta1);
             
-            this.actualizacionTablaUser(0); //SE actualiza la tabla de usuarios para reflejar que el usuario root lo ultimo que realizo fue una itacora de acceso
+            //this.actualizacionTablaUser(0); 
+
+            this.vitacora.vitacoraUsuarioSistema(9999, 4);//SE actualiza la tabla de usuarios para reflejar que el usuario root lo ultimo que realizo fue una itacora de acceso
         } catch (FileNotFoundException ex) {
-                Logger.getLogger(JFShowUsers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JFVitacoraUsers.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException e){
-            System.out.println("El error es " + e);
+            System.out.println("El error es creacion del pdf " + e);
             
         }
         //Date fechaD = new Date();
@@ -341,7 +347,8 @@ public class JFShowUsers extends javax.swing.JFrame {
             // Verificamos si el proceso fue exitoso
             if (processComplete == 0) {
                 JOptionPane.showMessageDialog(this, "Respaldo realizado con éxito.");
-                this.actualizacionTablaUser(1); //Se actualiza la tabla de usuarios para reflejar que la ultima accion de root fue crear un respaldo
+                //this.actualizacionTablaUser(1); 
+                this.vitacora.vitacoraUsuarioSistema(9999, 2); //Se actualiza la tabla de usuarios para reflejar que la ultima accion de root fue crear un respaldo
                 
             } else {
                 JOptionPane.showMessageDialog(this, "Error al realizar el respaldo.");
@@ -349,7 +356,7 @@ public class JFShowUsers extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-            }
+        }
     
     } 
     
@@ -394,20 +401,21 @@ public class JFShowUsers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFShowUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVitacoraUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFShowUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVitacoraUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFShowUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVitacoraUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFShowUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFVitacoraUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFShowUsers().setVisible(true);
+                new JFVitacoraUsers().setVisible(true);
             }
         });
     }

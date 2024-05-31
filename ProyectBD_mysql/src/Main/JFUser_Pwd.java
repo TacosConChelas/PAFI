@@ -27,6 +27,8 @@ public class JFUser_Pwd extends javax.swing.JFrame {
     Statement st;
     
     ResultSet rs;
+    
+    VitacoraUser vitacora = new VitacoraUser();
     /**
      * Creates new form JFUser_Pwd
      */
@@ -230,14 +232,17 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                         mainPantallRoot.setVisible(true);
                         mainPantallRoot.setLocationRelativeTo(null);
                         
-                        this.ingresoUsuario(9999);
+                        //this.ingresoUsuario(9999);
+                        this.vitacora.vitacoraUsuarioSistema(9999, 1);
+                        
                     
                     } else {
                         JFMainPantalla mainPantalla = new JFMainPantalla(idUser);
                         mainPantalla.setVisible(true);
                         mainPantalla.setLocationRelativeTo(null);
                         
-                        this.ingresoUsuario(idUser);
+                        //this.ingresoUsuario(idUser);
+                        this.vitacora.vitacoraUsuarioSistema(idUser, 1);
                     }
                     
                 } else {

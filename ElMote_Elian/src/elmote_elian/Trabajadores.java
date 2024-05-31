@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,12 +26,14 @@ public class Trabajadores extends javax.swing.JFrame {
     DefaultTableModel modeloProductos;
     
     public boolean tipoDeUsuario;
+    public int idU;
     /**
      * Creates new form Productos
      */
-    public Trabajadores(boolean tipoUsuario) {
+    public Trabajadores(boolean tipoUsuario, int id) {
         initComponents();
         this.tipoDeUsuario = tipoUsuario;
+        this.idU = id;
         
    
     }
@@ -231,10 +234,11 @@ public class Trabajadores extends javax.swing.JFrame {
                     .addComponent(eliminar)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(puesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(actualizar)
-                    .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(actualizar)
+                        .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,6 +296,39 @@ public class Trabajadores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void vitacora(int id, int opcion){
+        Date fecha = new Date();
+        String sql = "";
+        switch(opcion){
+            case 0:
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Mostro todos los trabajadores', tablaAfectada = 'Trabajador' where idU = " + id + ";";
+                break;
+            case 1: 
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Actualizo los datos de un trabajador', tablaAfectada = 'Trabajador' where idU = " + id + ";";
+                break;
+            case 2: 
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Elimino a un trabajador', tablaAfectada = 'Trabajador' where idU = " + id + ";";
+                break;
+            case 3: 
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Agrego a un trabajador', tablaAfectada = 'Trabajador' where idU = " + id + ";";
+                break;
+        }
+        try{
+            con = conect.getConnection();
+            con.setAutoCommit(false);
+                
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            con.commit();
+            con.setAutoCommit(true);
+            System.out.println("Registro en la tabla usuarios");
+                
+        }catch(SQLException e){
+            System.out.println(" El error es " + e);
+                
+        }
+    }
+    
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         if(this.tipoDeUsuario){
             String idT = idTrabajador.getText();
@@ -316,6 +353,7 @@ public class Trabajadores extends javax.swing.JFrame {
                 if (respuesta == JOptionPane.YES_OPTION) {
                         
                     con.commit();
+                    this.vitacora(this.idU, 3);
                         
                 } else{
                     con.rollback();
@@ -367,6 +405,8 @@ public class Trabajadores extends javax.swing.JFrame {
             }
             tablaTrabajadores.setModel(modeloProductos);
             
+            this.vitacora(this.idU , 0);
+            
         } catch(SQLException e){
             System.out.println(" El error es " + e);
         }
@@ -389,6 +429,8 @@ public class Trabajadores extends javax.swing.JFrame {
                 int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deceas eliminar al trabajador seleccionado    ?", "Confirmar", JOptionPane.YES_NO_OPTION);
                 if (respuesta == JOptionPane.YES_OPTION) { 
                     con.commit();
+                    
+                    this.vitacora(this.idU, 2);
                         
                 } else{
                     con.rollback();
@@ -418,8 +460,8 @@ public class Trabajadores extends javax.swing.JFrame {
         String horario = this.horario.getText();
         String salario = this.salario.getText();
         
-        String sql = "update producto set Nombre = '" + nombre + "', Correo = '" + correo + "', Puesto = '" + puesto + "', Empleado = '" + empleado + "', Gerente = '" + gerente + "', Horario = '";
-        String sql2 = sql + horario + "', salario = " + salario + " where idProducto = " + idT + ";";
+        String sql = "update trabajador set Nombre = '" + nombre + "', Correo = '" + correo + "', Puesto = '" + puesto + "', Empleado = '" + empleado + "', Gerente = '" + gerente + "', Horario = '";
+        String sql2 = sql + horario + "', salario = " + salario + " where idTrabajador = " + idT + ";";
         
         try{
             con = conect.getConnection();
@@ -431,6 +473,7 @@ public class Trabajadores extends javax.swing.JFrame {
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deceas actualizar los datos del trabajador?", "Confirmar", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.YES_OPTION) { 
                 con.commit();
+                this.vitacora(this.idU  , 1);
                         
             } else{
                 con.rollback();

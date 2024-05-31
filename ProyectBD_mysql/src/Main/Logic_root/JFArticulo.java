@@ -10,6 +10,7 @@ package Main.Logic_root;
  * @author josue
  */
 import Main.Conexion;
+import Main.VitacoraUser;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -28,9 +29,12 @@ public class JFArticulo extends javax.swing.JFrame {
     ResultSet rs;
     public int idUser = 9999;
     
+    VitacoraUser vitacora = new VitacoraUser(this.idUser);
+    
     
     public JFArticulo() {
         initComponents();
+        
         
     }
     
@@ -135,7 +139,7 @@ public class JFArticulo extends javax.swing.JFrame {
         jTFPrecioCompra = new javax.swing.JTextField();
         jBAgregar = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
-        jBottonUpdate = new javax.swing.JButton();
+        jBUpdate = new javax.swing.JButton();
         jBMostrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTFPrecioVenta = new javax.swing.JTextField();
@@ -185,10 +189,10 @@ public class JFArticulo extends javax.swing.JFrame {
             }
         });
 
-        jBottonUpdate.setText("update");
-        jBottonUpdate.addActionListener(new java.awt.event.ActionListener() {
+        jBUpdate.setText("update");
+        jBUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBottonUpdateActionPerformed(evt);
+                jBUpdateActionPerformed(evt);
             }
         });
 
@@ -235,7 +239,7 @@ public class JFArticulo extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jBottonUpdate)
+                                    .addComponent(jBUpdate)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jBExit))
                                 .addComponent(jBMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -308,7 +312,7 @@ public class JFArticulo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBAgregar)
                     .addComponent(jBExit)
-                    .addComponent(jBottonUpdate))
+                    .addComponent(jBUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBEliminarP)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -402,7 +406,8 @@ public class JFArticulo extends javax.swing.JFrame {
                 con.setAutoCommit(true);
             
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
-                this.actualizacionTablaUsers_AfterAction(0);
+                //this.actualizacionTablaUsers_AfterAction(0);
+                this.vitacora.vitacoraUsuarioArticulos(0);
          
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
@@ -440,7 +445,7 @@ public class JFArticulo extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBEliminarActionPerformed
 
-    private void jBottonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBottonUpdateActionPerformed
+    private void jBUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUpdateActionPerformed
         int fila = this.jTProductos.getSelectedRow();
        
         String nameP = this.jTFNombreP.getText();
@@ -467,7 +472,8 @@ public class JFArticulo extends javax.swing.JFrame {
                
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
         
-                this.actualizacionTablaUsers_AfterAction(2);
+                //this.actualizacionTablaUsers_AfterAction(2);
+                this.vitacora.vitacoraUsuarioArticulos(2);
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
                 
@@ -480,14 +486,15 @@ public class JFArticulo extends javax.swing.JFrame {
         
         } else {    System.out.println("Opcion cancelada por el usuario");  }
         
-    }//GEN-LAST:event_jBottonUpdateActionPerformed
+    }//GEN-LAST:event_jBUpdateActionPerformed
 
     
     private void jBMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarActionPerformed
         // TODO add your handling code here:
         this.showProductos();
         
-        this.actualizacionTablaUsers_AfterAction(3);
+        //this.actualizacionTablaUsers_AfterAction(3);
+        this.vitacora.vitacoraUsuarioArticulos(3);
         
         
         
@@ -524,7 +531,8 @@ public class JFArticulo extends javax.swing.JFrame {
             
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
                 
-                this.actualizacionTablaUsers_AfterAction(1);
+                //this.actualizacionTablaUsers_AfterAction(1);
+                this.vitacora.vitacoraUsuarioArticulos(1);
             } catch(SQLException e){
                 System.out.println(" El error es " + e);
                 
@@ -587,7 +595,7 @@ public class JFArticulo extends javax.swing.JFrame {
     private javax.swing.JButton jBEliminarP;
     private javax.swing.JButton jBExit;
     private javax.swing.JButton jBMostrar;
-    private javax.swing.JButton jBottonUpdate;
+    private javax.swing.JButton jBUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -4,12 +4,15 @@
  */
 package Main.Logic_root;
 
+
+
 /**
  *
  * @author TheOneAboveAll
  */
 public class JFMainPantalla_Root extends javax.swing.JFrame {
 
+   
     /**
      * Creates new form jFMainPantalla
      */
@@ -26,7 +29,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jBProveedores = new javax.swing.JButton();
         jBArticulos = new javax.swing.JButton();
         jBEmpleados = new javax.swing.JButton();
         jBDetallarVenta = new javax.swing.JButton();
@@ -36,10 +39,10 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Lista de provedores");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBProveedores.setText("Proveedores");
+        jBProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBProveedoresActionPerformed(evt);
             }
         });
 
@@ -102,7 +105,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jBShowOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBShowUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(1, 1, 1)))
                 .addGap(25, 25, 25))
@@ -119,7 +122,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
                     .addComponent(jBNewMateriales, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                     .addComponent(jBDetallarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBShowOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -130,9 +133,10 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jBProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProveedoresActionPerformed
+        JFProvedores proveedores = new JFProvedores();
+        proveedores.setVisible(true);
+    }//GEN-LAST:event_jBProveedoresActionPerformed
 
     private void jBArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArticulosActionPerformed
         // TODO add your handling code here:
@@ -162,7 +166,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
     }//GEN-LAST:event_jBShowOrdenesActionPerformed
 
     private void jBShowUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBShowUsersActionPerformed
-       JFShowUsers users = new JFShowUsers();
+       JFVitacoraUsers users = new JFVitacoraUsers();
        users.setVisible(true);
     }//GEN-LAST:event_jBShowUsersActionPerformed
 
@@ -206,8 +210,8 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
     private javax.swing.JButton jBDetallarVenta;
     private javax.swing.JButton jBEmpleados;
     private javax.swing.JButton jBNewMateriales;
+    private javax.swing.JButton jBProveedores;
     private javax.swing.JButton jBShowOrdenes;
     private javax.swing.JButton jBShowUsers;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,18 +24,52 @@ public class Productos extends javax.swing.JFrame {
     ResultSet rs;
     Connection con;
     DefaultTableModel modeloProductos;
+    public int idUsuario;
     
     public boolean tipoDeUsuario;
     /**
      * Creates new form Productos
      */
-    public Productos(boolean tipoUsuario) {
+    public Productos(boolean tipoUsuario, int id) {
         initComponents();
         this.tipoDeUsuario = tipoUsuario;
+        idUsuario = id;
         
    
     }
 
+    public void vitacora(int id, int opcion){
+        Date fecha = new Date();
+        String sql = "";
+        switch(opcion){
+            case 0:
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Mostro los productos', tablaAfectada = 'Producto' where idU = " + id + ";";
+                break;
+            case 1: 
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Actualizo un producto', tablaAfectada = 'Producto' where idU = " + id + ";";
+                break;
+            case 2: 
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Elimino un producto', tablaAfectada = 'Producto' where idU = " + id + ";";
+                break;
+            case 3: 
+                sql = "update usuario set fecha = '" + fecha + "', accion = 'Agrego un producto', tablaAfectada = 'Producto' where idU = " + id + ";";
+                break;
+        }
+        try{
+            con = conect.getConnection();
+            con.setAutoCommit(false);
+                
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            con.commit();
+            con.setAutoCommit(true);
+            System.out.println("Registro en la tabla usuarios");
+                
+        }catch(SQLException e){
+            System.out.println(" El error es " + e);
+                
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -222,10 +257,11 @@ public class Productos extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addComponent(eliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(actualizar)
-                    .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(actualizar)
+                        .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ConAl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,6 +344,8 @@ public class Productos extends javax.swing.JFrame {
                 if (respuesta == JOptionPane.YES_OPTION) {
                         
                     con.commit();
+                    
+                    this.vitacora(this.idUsuario, 3);
                 } else{
                     con.rollback();
                 }
@@ -358,6 +396,8 @@ public class Productos extends javax.swing.JFrame {
             }
             tablaProductos.setModel(modeloProductos);
             
+            this.vitacora(this.idUsuario, 0);
+            
         } catch(SQLException e){
             System.out.println(" El error es " + e);
         }
@@ -380,9 +420,9 @@ public class Productos extends javax.swing.JFrame {
                 int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deceas eliminar este producto?", "Confirmar", JOptionPane.YES_NO_OPTION);
                 if (respuesta == JOptionPane.YES_OPTION) { 
                     con.commit();
-                        
+                    this.vitacora(this.idUsuario, 2);///
                 } else{
-                    con.rollback();
+                    con.rollback(); 
                 }
                 con.setAutoCommit(true);
                 
@@ -421,10 +461,11 @@ public class Productos extends javax.swing.JFrame {
             if (respuesta == JOptionPane.YES_OPTION) { 
                 con.commit();
                         
+                this.vitacora(this.idUsuario, 1);
             } else{
                 con.rollback();
             }
-            con.setAutoCommit(true);
+           
                 
             con.setAutoCommit(true);
             System.out.println("Registro exitoso a la base de datos");

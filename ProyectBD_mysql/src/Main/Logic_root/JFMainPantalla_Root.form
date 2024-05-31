@@ -38,7 +38,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jBShowOrdenes" min="-2" pref="694" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="694" max="-2" attributes="0"/>
+                          <Component id="jBProveedores" min="-2" pref="694" max="-2" attributes="0"/>
                           <Component id="jBShowUsers" alignment="1" min="-2" pref="694" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -61,7 +61,7 @@
                   <Component id="jBDetallarVenta" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="jBProveedores" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBShowOrdenes" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -72,12 +72,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jBProveedores">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lista de provedores"/>
+        <Property name="text" type="java.lang.String" value="Proveedores"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBProveedoresActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBArticulos">
