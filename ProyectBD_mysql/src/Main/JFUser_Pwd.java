@@ -22,13 +22,14 @@ import javax.swing.JOptionPane;
 public class JFUser_Pwd extends javax.swing.JFrame {
 
     
-    Conexion conect = new Conexion();
+    Conexion conect = new Conexion(); //Creamos un objeto apartir de la clase Conexion para poder usarla aqui
     Connection con;
     Statement st;
     
     ResultSet rs;
     
-    VitacoraUser vitacora = new VitacoraUser();
+    BitacoraUser vitacora = new BitacoraUser();
+    //se crea un objeto llamado vitacora apartir de la clase BitacoraUser para que esta pueda registrar las acciones del usuario en esta clase
     /**
      * Creates new form JFUser_Pwd
      */
@@ -178,35 +179,9 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBRegistrarseActionPerformed
 
-    public void ingresoUsuario(int idU){
-        Date fechaD = new Date();
-        String sqlVitacoraU = "update users set dateLastActualizacion = '" + fechaD.toString() + "', lastAction = 'Ingreso del usuario al sistema', tablaActualizada = null where idUser = " + idU + ";";
-    
-        try{
-                con = conect.getConnection();
-                con.setAutoCommit(false);
-                
-                st = con.createStatement();
-                st.executeUpdate(sqlVitacoraU);
-                
-                con.commit();
-                con.setAutoCommit(true);
-               
-                //JOptionPane.showMessageDialog(null, "Registro exitoso");
-                System.out.println("Se actualizo correctamente la tabla users");
-            }catch(SQLException e){
-                System.out.println(" El error es " + e);
-                
-            } finally {
-                try {
-                    if (st != null) st.close();
-                    if (con != null) con.close();
-                } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
-            } 
-    }
-            
-            
+        
     private void jBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarActionPerformed
+        
         int idUser = Integer.parseInt(new String(this.jPF_IdUser.getPassword()));
         String pwdU = new String(this.jPFPwdUser.getPassword());
         
@@ -233,7 +208,7 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                         mainPantallRoot.setLocationRelativeTo(null);
                         
                         //this.ingresoUsuario(9999);
-                        this.vitacora.vitacoraUsuarioSistema(9999, 1);
+                        vitacora.vitacoraUsuarioSistema(9999, 1);
                         
                     
                     } else {
@@ -242,7 +217,8 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                         mainPantalla.setLocationRelativeTo(null);
                         
                         //this.ingresoUsuario(idUser);
-                        this.vitacora.vitacoraUsuarioSistema(idUser, 1);
+                        //System.out.println(idUser);
+                        vitacora.vitacoraUsuarioSistema(idUser, 1);
                     }
                     
                 } else {

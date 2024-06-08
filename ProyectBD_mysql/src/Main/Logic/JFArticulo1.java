@@ -11,6 +11,7 @@ package Main.Logic;
  */
 import Main.Logic_root.*;
 import Main.Conexion;
+import Main.BitacoraUser;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -29,6 +30,10 @@ public class JFArticulo1 extends javax.swing.JFrame {
     ResultSet rs;
     public int idUser;
     
+    BitacoraUser vitacora = new BitacoraUser(); 
+    
+    //se crea un objeto llamado vitacora apartir de la clase BitacoraUser para que esta pueda registrar las acciones del usuario en esta clase
+    
     
     public JFArticulo1(int idu) {
         initComponents();
@@ -37,7 +42,7 @@ public class JFArticulo1 extends javax.swing.JFrame {
     }
     
     public void showProductos(){
-        System.out.println("Entre al metodo");
+        System.out.println("Entre al metodo");//Mensjae de afirmacion para corroborrar que funciona el metodo
         
         
         for (int i = 0; i < this.jTProductos.getRowCount(); i++){
@@ -240,16 +245,17 @@ public class JFArticulo1 extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addGap(18, 18, 18)
                                     .addComponent(jTFPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -403,7 +409,9 @@ public class JFArticulo1 extends javax.swing.JFrame {
                
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
         
-                this.actualizacionTablaUsers_AfterAction(2);
+                ////////this.actualizacionTablaUsers_AfterAction(2);
+                this.vitacora.vitacoraUsuarioArticulos(2, this.idUser);
+                
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
                 
@@ -423,7 +431,8 @@ public class JFArticulo1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.showProductos();
         
-        this.actualizacionTablaUsers_AfterAction(3);
+        /////this.actualizacionTablaUsers_AfterAction(3);
+        this.vitacora.vitacoraUsuarioArticulos(3, this.idUser);
         
         
         

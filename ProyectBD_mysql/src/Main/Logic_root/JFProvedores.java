@@ -10,7 +10,7 @@ package Main.Logic_root;
  * @author josue
  */
 import Main.Conexion;
-import Main.VitacoraUser;
+import Main.BitacoraUser;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -29,7 +29,7 @@ public class JFProvedores extends javax.swing.JFrame {
     ResultSet rs;
     public int idUser = 9999;
     
-    VitacoraUser vitacora = new VitacoraUser(this.idUser);
+    BitacoraUser vitacora = new BitacoraUser();
     
     public JFProvedores() {
         initComponents();
@@ -416,7 +416,7 @@ public class JFProvedores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
                 
                //this.actualizacionTablaUsers_AfterAction(0);
-               this.vitacora.vitacoraUsuarioProveedores(0);
+               this.vitacora.vitacoraUsuarioProveedores(0, this.idUser);
             
  
             }catch(SQLException e){
@@ -487,7 +487,7 @@ public class JFProvedores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
         
                 //this.actualizacionTablaUsers_AfterAction(2);
-                this.vitacora.vitacoraUsuarioProveedores(2);
+                this.vitacora.vitacoraUsuarioProveedores(2, this.idUser);
                 
             }catch(SQLException e){
                 System.out.println(" El error es " + e);
@@ -509,7 +509,7 @@ public class JFProvedores extends javax.swing.JFrame {
         this.showProveedores();
         
         //this.actualizacionTablaUsers_AfterAction(3);
-        this.vitacora.vitacoraUsuarioProveedores(3);
+        this.vitacora.vitacoraUsuarioProveedores(3, this.idUser);
         
         
         
@@ -547,7 +547,7 @@ public class JFProvedores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
                 
                 //this.actualizacionTablaUsers_AfterAction(1);
-                this.vitacora.vitacoraUsuarioProveedores(1);
+                this.vitacora.vitacoraUsuarioProveedores(1, this.idUser);
             } catch(SQLException e){
                 System.out.println(" El error es " + e);
                 

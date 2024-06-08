@@ -17,7 +17,8 @@ public class JFMainPantalla extends javax.swing.JFrame {
         initComponents();
         
         this.idU = idu;
-        System.out.println(this.idU);
+        System.out.println("Ingreso al menu usuario normal " + idU);
+        //System.out.println(this.idU);
     }
 
     /**
@@ -33,7 +34,7 @@ public class JFMainPantalla extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jBShowEmpleados = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBArticulos = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -53,10 +54,10 @@ public class JFMainPantalla extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Productos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBArticulos.setText("Productos");
+        jBArticulos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBArticulosActionPerformed(evt);
             }
         });
 
@@ -79,7 +80,7 @@ public class JFMainPantalla extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBShowEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -87,7 +88,7 @@ public class JFMainPantalla extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -115,16 +116,17 @@ public class JFMainPantalla extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBArticulosActionPerformed
         JFArticulo1 articulos = new JFArticulo1(this.idU);
         articulos.setVisible(true);
         System.out.println(this.idU);
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBArticulosActionPerformed
 
     private void jBShowEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBShowEmpleadosActionPerformed
         // TODO add your handling code here:
-        JFEmpleados1 empleados = new JFEmpleados1(this.idU  );
+        System.out.println("el id es en menu " + this.idU);
+        JFEmpleados1 empleados = new JFEmpleados1(this.idU  ); 
         empleados.setVisible(true);
     }//GEN-LAST:event_jBShowEmpleadosActionPerformed
 
@@ -174,8 +176,8 @@ public class JFMainPantalla extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBArticulos;
     private javax.swing.JButton jBShowEmpleados;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

@@ -18,13 +18,14 @@ import java.util.Date;
  */
 public class JFUserRegister extends javax.swing.JFrame {
 
-    Conexion conect = new Conexion();
+    Conexion conect = new Conexion(); //Creamos un objeto apartir de la clase Conexion para poder usarla aqui
     Connection con;
     Statement st;
     DefaultTableModel modeloArticulo;
     ResultSet rs;
     
-    VitacoraUser vitacora = new VitacoraUser();
+     BitacoraUser vitacora = new BitacoraUser();
+    //se crea un objeto llamado vitacora apartir de la clase BitacoraUser para que esta pueda registrar las acciones del usuario en esta clase
     /**
      * Creates new form JFUserRegister
      */
@@ -143,47 +144,54 @@ public class JFUserRegister extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBRegistrarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistrarUActionPerformed
+        
+        //Guardamos lo que coloco el usuario en variables locales 
         int idUser = Integer.parseInt(this.jTFUserId.getText());
         String pwdU = new String(this.jPFUserPwd.getPassword());
         Date fechaD = new Date();
         //System.out.println("hoy es " + fechaD.toString());
         
-        String sqlBusqueda = "select * from users where idUser = " + idUser + ";";
+        String sqlBusqueda = "select * from users where idUser = " + idUser + ";"; 
+        //la variable que se va a encargar de hacer la busqueda si el usuario ingresado no existe 
        
         String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "');";
-        
+        //si el usuario no existe se usa esta variable para agregar ese nuevo usuario a la tabla de users
         try{
+            //Se hace el try catch para realizar la coneccion
             con = conect.getConnection();
             st = con.createStatement();
-            rs= st.executeQuery(sqlBusqueda);
-            System.out.println("Se conectó correctamente a BD");
+            rs= st.executeQuery(sqlBusqueda); //Se inserta la variable que contiene la consulta para hacer la busqueda 
+            System.out.println("Se conectó correctamente a BD"); //Se manda un mensaje de que se logro conectar a la bd 
             
             //Evaluacion si contiene alguna columna 
             if(! rs.next()){
-                st.executeUpdate(sqlInsert);
+                //Si la condicion se cumple es decir si la consulta no nos devuelve nada se procede a hacer la insercion del nuevo usuario
+                st.executeUpdate(sqlInsert); //Se añade la variable que contiene la insercion
                 
-                this.vitacora.vitacoraUsuarioSistema(idUser, 0);
-                JOptionPane.showMessageDialog(null, "registro del usuario exitoso");
-                this.setVisible(false);
+                vitacora.vitacoraUsuarioSistema(idUser, 0); 
+                //Se manda a llamar al objeto vitacora para que registre que un nuevo usuario a creado su perfil
+                
+                JOptionPane.showMessageDialog(null, "registro del usuario exitoso"); 
+                //Se ejecuta  una ventana emergente para mostrar un mensjae que se ha ejecutado todo correctamente
+                this.setVisible(false);//Se ejecuta como argumento FALSE para hacer que la ventana de esta clase se deje de mostrar
             } else {
-                JOptionPane.showMessageDialog(null, "Lo sentimos pero este usuario y/o contraseña ya existe");
+                //Si la condicion del IF no se cumple quiere decir que la consulta de busqueda si nos dio respuesta, por lo tanto el usuario registrado ya existe, por lo que no se registra
+                JOptionPane.showMessageDialog(null, "Lo sentimos pero este usuario y/o contraseña ya existe"); //se manda un mensaje de que el usuario ya existe
             }
         }   catch(SQLException e){
             System.out.println(" El error es " + e);
+            //Si el TRY no se logra ejecutar por algun error se ejecuta el CATCH mostrando el error ocurrido como mensjae en la consola
         }  finally {
-            //Limpia y cierra las conecciones para liberar memoria 
+            //Limpia y cierra las conecciones para liberar memoria, esto meramente como buenas practicas
             try {
                 if (rs != null) rs.close();
                 if (st != null) st.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión " + e);
+                System.out.println("Error al cerrar la conexión " + e); //Si hubo algun error al serrar las conecciones se muestra el mensaje con el error 
             }
         }
-         
-         
-         
-         
+   
        
     }//GEN-LAST:event_jBRegistrarUActionPerformed
 

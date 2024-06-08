@@ -166,7 +166,7 @@ public class JFMainPantalla_Root extends javax.swing.JFrame {
     }//GEN-LAST:event_jBShowOrdenesActionPerformed
 
     private void jBShowUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBShowUsersActionPerformed
-       JFVitacoraUsers users = new JFVitacoraUsers();
+       JFBitacoraUsers users = new JFBitacoraUsers();
        users.setVisible(true);
     }//GEN-LAST:event_jBShowUsersActionPerformed
 

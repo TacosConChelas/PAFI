@@ -9,6 +9,7 @@ package Main.Logic;
  *
  * @author josue
  */
+import Main.BitacoraUser;
 import Main.Logic_root.*;
 import Main.Conexion;
 import java.sql.Connection;
@@ -29,11 +30,15 @@ public class JFEmpleados1 extends javax.swing.JFrame {
     ResultSet rs;
     public int idUser;
     
+    BitacoraUser vitacora = new BitacoraUser();
+    
     public JFEmpleados1(int idu) {
-        initComponents();
+       initComponents();
         
         this.idUser = idu;
-        System.out.println(this.idUser  );
+        System.out.println("el id en epleados es " + this.idUser  );
+        vitacora.idUsuario = idu;
+        
     }
     
     public void showEmpleados(){
@@ -234,7 +239,8 @@ public class JFEmpleados1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.showEmpleados();
 
-        this.actualizacionTablaUser(3, this.idUser  );
+        //this.actualizacionTablaUser(3, this.idUser  );
+        this.vitacora.vitacoraUsuarioEmpleados(3, this.idUser); System.out.println("El id del usuario e en la clase empleados  " + this.idUser);
 
     }//GEN-LAST:event_jBMostrarActionPerformed
 
