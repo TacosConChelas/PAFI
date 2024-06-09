@@ -75,6 +75,15 @@ public class JFShowOrdenes extends javax.swing.JFrame {
             //JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
         } catch (SQLException e) {
             System.out.println(" El error es " + e);
+        } finally {
+            //cerrar conecciones con la bd
+            try {
+                if (rs != null) rs.close();
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión " + e);
+            }
         }
 
     }

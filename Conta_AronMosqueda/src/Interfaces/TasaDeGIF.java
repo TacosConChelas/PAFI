@@ -232,7 +232,8 @@ public class TasaDeGIF extends javax.swing.JFrame {
         double tg = Double.parseDouble(TasaGif.getText());
         double b = Double.parseDouble(Base.getText());
         
-        String sql = "insert into tasagif values(" + noO + "," + g + "," + tg + "," + b + ");";
+        
+        String sql = "insert into tasagif values(" + noO + "," + g + "," + b + "," + tg + ");";
         
         try {
             coneccion = conect.getConnection();

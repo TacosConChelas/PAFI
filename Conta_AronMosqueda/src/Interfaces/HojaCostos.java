@@ -671,7 +671,7 @@ public class HojaCostos extends javax.swing.JFrame {
                 FechaM.setText(resultset.getString("fecha"));
                 NoR.setText(resultset.getInt("noR") + "");
                 CostTotM.setText(resultset.getFloat("ct1") + "");
-                //datos del renglon 1
+                //datos del renglon 2
                 FechaM1.setText(resultset.getString("fecha"));
                 NoR1.setText(resultset.getInt("noR") + "");
                 CostTotM1.setText(resultset.getFloat("ct2") + "");
@@ -679,6 +679,7 @@ public class HojaCostos extends javax.swing.JFrame {
                 total1 = resultset.getFloat("total");
                 
             } 
+            
         }   catch(SQLException e){
             System.out.println(" El error es " + e);
             
@@ -737,17 +738,12 @@ public class HojaCostos extends javax.swing.JFrame {
         MaterialesD.setText(total1 + "");
         ManoObra.setText(total2 + "");
         GIF.setText(total3 + "");
-        CostoTotal.setText((total3 + total2 + total1) + "");
+        CostoTotal.setText((total3 + total2 + total1) + ""); //se suman los 3 anteriores
         int cantidad = Integer.parseInt(noArticulos.getText());
         float unitario = (total3 + total2 + total1) / cantidad ;
         CostoUnitario.setText(unitario + "");
         
-        
-        
-        
   
-        
-        
     }//GEN-LAST:event_mostrarActionPerformed
 
     private void guardarCalcular1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarCalcular1ActionPerformed
@@ -756,7 +752,33 @@ public class HojaCostos extends javax.swing.JFrame {
     }//GEN-LAST:event_guardarCalcular1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String c = Cliente.getText();
+        String nO = noOrden.getText();
+        String d = Descripcion.getText();
+        String nA = noArticulos.getText();
+        String fI = fechaInicio.getText();
+        String fF = fechaFin.getText();
+        
+        float md = Float.parseFloat(MaterialesD.getText());
+        float mo = Float.parseFloat(ManoObra.getText());
+        float g = Float.parseFloat(GIF.getText());
+        float ct = Float.parseFloat(CostoTotal.getText());
+        float cu = Float.parseFloat(CostoUnitario.getText());
+        
+        String sql = "insert into hojac values(" + nO + ",'" + c + "','" + d + "'," + nA + ",'" + fI + "','" + fF + "'," + md + "," + mo + "," + g + "," + ct + "," + cu + ");";
+        
+         try {
+            coneccion = conect.getConnection();
+            statement = coneccion.createStatement();
+    
+            statement.addBatch(sql);
+            statement.executeBatch();
+    
+            System.out.println("correcto");
+
+        } catch (Exception e) { 
+            System.out.println("El error es " + e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

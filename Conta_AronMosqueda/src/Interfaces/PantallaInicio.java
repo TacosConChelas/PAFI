@@ -124,8 +124,8 @@ public class PantallaInicio extends javax.swing.JFrame {
         int claveUs = Integer.parseInt(claveU.getText()); 
         String pwdU = new String(this.contraseñaU.getPassword());
         
-        System.out.println(claveUs);
-        System.out.println();
+        //System.out.println(claveUs); AND
+        
         if(this.clave == claveUs && pwd.equals(pwdU) ){
             pantallaP.setVisible(true);
         

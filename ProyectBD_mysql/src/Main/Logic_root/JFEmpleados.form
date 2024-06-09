@@ -119,13 +119,10 @@
                               <Component id="jBEliminar" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jBMostrar" min="-2" pref="196" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jBottonUpdate" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBExit" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jBMostrar" pref="196" max="32767" attributes="0"/>
+                              <Component id="jBExit" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBottonUpdate" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -171,7 +168,7 @@
                       <Component id="jTFTypeEmpleado" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="107" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBMostrar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -180,10 +177,12 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBEliminarEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBottonUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBExit" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jBAgregar" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jBAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBExit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -251,7 +250,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBottonUpdate">
           <Properties>
-            <Property name="text" type="java.lang.String" value="update"/>
+            <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBottonUpdateActionPerformed"/>

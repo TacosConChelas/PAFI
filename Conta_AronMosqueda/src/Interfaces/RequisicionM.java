@@ -14,6 +14,7 @@ import java.sql.Statement;
 public class RequisicionM extends javax.swing.JFrame {
     ConeccionBaseDeDatos conect = new ConeccionBaseDeDatos();
     Statement statement;
+    public double total;
     
     Connection coneccion;
     /**
@@ -22,12 +23,7 @@ public class RequisicionM extends javax.swing.JFrame {
     public RequisicionM() {
         initComponents();
     }
-    public double total;
     
-
-    public String noRequisicions;
-    public String departamento;
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -208,6 +204,11 @@ public class RequisicionM extends javax.swing.JFrame {
         });
 
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -250,7 +251,7 @@ public class RequisicionM extends javax.swing.JFrame {
                         .addComponent(calcular)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -360,7 +361,7 @@ public class RequisicionM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
-        int c1 = Integer.parseInt(this.cant1.getText()); //cantidad de cada material
+        int c1 = Integer.parseInt(cant1.getText()); //cantidad de cada material
         int c2 = 0;
         
         double cu1; //costo unitario de cada material
@@ -372,15 +373,19 @@ public class RequisicionM extends javax.swing.JFrame {
             ct2 = 0;
             costoTot2.setText(ct2 + "");
             
-        } else {
+        } else if( ! costoTot2.getText().isEmpty()){
+            ct2 = Double.parseDouble(costoTot2.getText());
             
+        } else {
             c2 = Integer.parseInt(this.cant2.getText()); 
             String descripcion2 = this.descripcion2.getText();
+            
             if (costoU2.getText().isEmpty()){
                 //Se analisa si no existe el costo unitario y se calcula
                 ct2 = Double.parseDouble(costoTot2.getText());
                 cu2 = ct2 / c2;
-                costoU2.setText(cu2 + "");    
+                costoU2.setText(cu2 + ""); 
+                
             } else { cu2 = Double.parseDouble(costoU2.getText());}
             
             ct2 = c2 * cu2;
@@ -475,6 +480,10 @@ public class RequisicionM extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -304,9 +304,7 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
         double ta2;
         double tot2 = 0;
         
-        
-        
-        
+        String f1 = fecha1.getText();
         int noH1 = Integer.parseInt(noHoras1.getText());
         double ta1 = Double.parseDouble(tarifa1.getText());
         double tot1 = noH1 * ta1;
@@ -322,9 +320,7 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
         
         double total = tot1 + tot2;
         Total.setText(total + "");
-        
-        
-        
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton2ComponentResized
