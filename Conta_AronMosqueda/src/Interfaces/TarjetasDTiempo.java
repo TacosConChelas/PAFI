@@ -59,6 +59,9 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         noOrden = new javax.swing.JTextField();
+        trabajador1 = new javax.swing.JTextField();
+        trabajador2 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,11 +92,11 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(30, 30, 30));
-        jLabel3.setText("Numero de orden:");
+        jLabel3.setText("Número de orden:");
 
         jLabel4.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(30, 30, 30));
-        jLabel4.setText("Fecha:");
+        jLabel4.setText("Periodo:");
 
         fecha2.setBackground(new java.awt.Color(255, 255, 255));
         fecha2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -102,7 +105,7 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(30, 30, 30));
-        jLabel5.setText("Numero de horas:");
+        jLabel5.setText("Número de horas:");
 
         noHoras1.setBackground(new java.awt.Color(255, 255, 255));
         noHoras1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -187,6 +190,20 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
         noOrden.setBackground(new java.awt.Color(255, 255, 255));
         noOrden.setForeground(new java.awt.Color(0, 0, 0));
 
+        trabajador1.setBackground(new java.awt.Color(255, 255, 255));
+        trabajador1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        trabajador1.setForeground(new java.awt.Color(0, 0, 0));
+        trabajador1.setMinimumSize(new java.awt.Dimension(90, 34));
+
+        trabajador2.setBackground(new java.awt.Color(255, 255, 255));
+        trabajador2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        trabajador2.setForeground(new java.awt.Color(0, 0, 0));
+        trabajador2.setMinimumSize(new java.awt.Dimension(90, 34));
+
+        jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(30, 30, 30));
+        jLabel8.setText("Nombre del trabajador:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -210,32 +227,35 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(fecha1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                                     .addComponent(fecha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(32, 32, 32)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(trabajador1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(trabajador2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(noHoras1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(noHoras2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(49, 49, 49)
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(tarifa2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                                        .addComponent(Tot2))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(tarifa1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(Tot1))
+                                    .addComponent(tarifa2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tarifa1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel7)))))
+                                        .addGap(80, 80, 80)))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Tot2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Tot1, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(93, 93, 93))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(23, 23, 23)
                 .addComponent(jButton3)
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -251,19 +271,22 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(noHoras1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tarifa1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Tot1)
-                    .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(trabajador1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(noHoras2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tarifa2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Tot2))
+                    .addComponent(Tot2)
+                    .addComponent(trabajador2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -336,6 +359,7 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
         String f2;
         String ta2;
         String noH2;
+        String nt2 = " ";
         double tot2 = Double.parseDouble(Tot2.getText());
         
         //si total 2 es 0 los valores quedaran null
@@ -343,11 +367,13 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
             f2 = "null";
             ta2 = "null";
             noH2 = "0";
+            nt2 = "null";
         
         } else{
             f2 = fecha2.getText();
             noH2 = noHoras2.getText();
             ta2 = tarifa2.getText();
+            nt2 = trabajador2.getText();
         }
         double total = Double.parseDouble(Total.getText()); //guardamos el total
         String noO = noOrden.getText();//guadamos el numero de ordenm
@@ -355,20 +381,20 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
         String f1 = fecha1.getText();//pedimos los rdatoa del renglon 1
         double ta1 = Double.parseDouble(tarifa1.getText());
         int noH1 = Integer.parseInt(noHoras1.getText());
+        String nt1 = trabajador1.getText();
        
         
         //String sql = "insert into tarjetatiempo values (1, null, null, null, null, null, null, null);";
         String sql;
         if(tot2 == 0){
-            sql = "insert into tarjetatiempo values (" + noO + ", '" + f1 + "', " + noH1 + ", " + ta1 + ", null , " + noH2 + ", " + ta2 + ", " + total + ");";
+            sql = "insert into tarjetatiempo values (" + noO + ", '" + f1 + "', " + noH1 + ", " + ta1 + ", null , " + noH2 + ", " + ta2 + ", " + total + ",'" + nt1 + "','" + nt2 +"');";
         } else{
-            sql = "insert into tarjetatiempo values (" + noO + ", '" + f1 + "', " + noH1 + ", " + ta1 + ", '" + f2 + "', " + noH2 + ", " + ta2 + ", " + total + ");";
+            sql = "insert into tarjetatiempo values (" + noO + ", '" + f1 + "', " + noH1 + ", " + ta1 + ", '" + f2 + "', " + noH2 + ", " + ta2 + ", " + total + ",'" + nt1 + "','" + nt2 +"');";
         }
         
         try {
             coneccion = conect.getConnection();
             statement = coneccion.createStatement();
-    
             statement.addBatch(sql);
             statement.executeBatch();
     
@@ -434,6 +460,7 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField noHoras1;
@@ -441,5 +468,7 @@ public class TarjetasDTiempo extends javax.swing.JFrame {
     private javax.swing.JTextField noOrden;
     private javax.swing.JTextField tarifa1;
     private javax.swing.JTextField tarifa2;
+    private javax.swing.JTextField trabajador1;
+    private javax.swing.JTextField trabajador2;
     // End of variables declaration//GEN-END:variables
 }

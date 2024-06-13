@@ -11,7 +11,6 @@ public class ConeccionBaseDeDatos {
     String psw = "12345";
     String driver = "com.mysql.cj.jdbc.Driver";
     Connection con;
-
         public Connection getConnection(){
             try{
                 Class.forName(this.driver);

@@ -33,48 +33,174 @@ public class JFDetalleVenta extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void showVentas(){
-        System.out.println("hola1");
-        for (int i = 0; i < this.jTVentas.getRowCount(); i++){
-            modeloVenta.removeRow(i);
-            i = i - 1;
+    public void showVentasODetalleVenta(int opcion){
+        //System.out.println("hola1");
+        String sqlVentaODetalleVenta = "";
+        switch(opcion){
+            case 0:     for (int i = 0; i < this.jTDetalleVenta.getRowCount(); i++){  modeloVenta.removeRow(i);   i = i - 1;  }  
+                sqlVentaODetalleVenta = "select * from detallev";   break;
+            case 1:     for (int i = 0; i < this.jTVentas.getRowCount(); i++){  modeloVenta.removeRow(i);   i = i - 1;  }  
+                sqlVentaODetalleVenta = "select * from venta";  break;
+            default: System.out.println("Error al mostrar"); break;
         }
-        String sqlProducto = "select * from venta";
         try{
             con = conect.getConnection();
             st = con.createStatement();
-            rs= st.executeQuery(sqlProducto);
+            rs= st.executeQuery(sqlVentaODetalleVenta);
             
-            Object[] venta = new Object[4];
-            modeloVenta = (DefaultTableModel)this.jTVentas.getModel();
-            while(rs.next()){
-                venta[0] = rs.getInt("Folio");
-                venta[1] = rs.getString("fecha");
-                venta[2] = rs.getFloat("total");
-                venta[3] = rs.getInt("idempleado");
-                
-                
-                modeloVenta.addRow(venta);    
+            Object[] venta = new Object[4]; 
+            switch(opcion){
+                case 0:     modeloVenta = (DefaultTableModel)this.jTDetalleVenta.getModel();
+                    while(rs.next()){
+                        venta[0] = rs.getInt("idProducto");
+                        venta[1] = rs.getInt("folio");
+                        venta[2] = rs.getFloat("cantidad");
+                        venta[3] = rs.getFloat("subtotal");
+                        modeloVenta.addRow(venta);    
+                    }   this.jTDetalleVenta.setModel(modeloVenta);  break;
+                case 1:     modeloVenta = (DefaultTableModel)this.jTVentas.getModel();
+                    while(rs.next()){
+                        venta[0] = rs.getInt("Folio");
+                        venta[1] = rs.getString("fecha");
+                        venta[2] = rs.getFloat("total");
+                        venta[3] = rs.getInt("idempleado");
+                        modeloVenta.addRow(venta);    
+                    }   this.jTVentas.setModel(modeloVenta);    break;
+                default:    System.out.println("Error al mostrar");    break;
             }
-            this.jTVentas.setModel(modeloVenta);
-            
-            
-        }catch(SQLException e){
-            System.out.println(" El error es " + e);
+        }catch(SQLException e){     System.out.println(" El error es " + e);
         } finally {
             //cerrar conecciones con la bd
             try {
                 if (rs != null) rs.close();
                 if (st != null) st.close();
                 if (con != null) con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión " + e);
+            } catch (SQLException e) {      System.out.println("Error al cerrar la conexión " + e);     }
+        }
+        
+    }
+
+    public void actualizarVentas(int idVenta, int opcion, int cantidad){
+        String sqlUpdate;
+        /*
+        0) Actualizar detalle venta
+        1) Actualizar ventas de manera normal
+        2) actualizar ventas despues de haber hecho un detalle venta
+        */
+        switch(opcion){
+            case 0:
+                sqlUpdate = "update producto set cantidad = " + cantidad;
+                break;
+            case 1:
+                
+                break;
+            case 2:
+                
+                break;
+            default: System.out.println("error en el tipo de actualizacion");
+                break;
+        }
+        
+        
+    
+    }
+    
+    public float totalProductoDetalleVenta(int idproducto, int cantidad){
+        float total = 0;
+        
+        String sqlBusqueda = "select * from producto where idProducto = " + idproducto + ";" ;
+        
+        String sqlCantidad;
+        int cant;
+        try{
+            con = conect.getConnection();
+            st = con.createStatement();
+            rs= st.executeQuery(sqlBusqueda);
+            //System.out.println("Se conectó correctamente a BD");
+            
+            
+            //Evaluacion si contiene alguna columna por lo que le id del producto si existe
+            if(rs.next()){
+                total = rs.getFloat("PrecioVenta") * cantidad;
+                
+            } else {System.out.println("no se encontro el producto");}
+            
+        }   catch(SQLException e){  System.out.println(" El error es " + e);
+            
+        }  finally {
+            //cerrar conecciones con la bd
+            try {
+                if (rs != null) rs.close();
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {  System.out.println("Error al cerrar la conexión " + e);
+            }
+        }
+       
+        return total;
+    }
+    
+    public boolean buscarProductoYFolio(int opcion, int id, int cant){
+        String sqlBusqueda = "";
+        boolean x = false;
+        
+        switch(opcion){
+            case 0:     //opcion para buscar el producto
+                sqlBusqueda = "select * from producto where idProducto = " + id + ";" ;     break;
+            case 1:     //opcion para buscar el folio de la venta
+                sqlBusqueda = "select * from venta where Folio = " + id + ";" ;     break;
+            case 2:     
+                // opcion para verificar si la cantidad a vender es menor a la cantidad que ya existe
+                sqlBusqueda = "select * from producto where idProducto = " + id + ";" ;     break;
+                
+            default: System.out.println("Error"); break;
+        }
+        try{
+            con = conect.getConnection();
+            st = con.createStatement();
+            rs= st.executeQuery(sqlBusqueda);
+            //System.out.println("Se conectó correctamente a BD");
+           
+            //Evaluacion si contiene alguna columna por lo que le id del producto o el folio de la venta si existe
+            if(rs.next()){
+               if(opcion == 2){
+                   //Esta opcion es cuando se decee verificar si la cantidad colocada en el detalle venta es la misma cantidad en existencias en la tabla producto
+                   if(cant <= rs.getInt("Cantidad")){
+                       //Retornara true si la cantidad que se va a vender es mayor a la cantidad que ya existe
+                       x = true;
+                       //Sino regresara false
+                   } else {    
+                       JOptionPane.showMessageDialog(null, "Lo sentimos pero la cantidad colocada sobrepasa la cantidad del producto en existencias"); 
+                       x = false;   
+                   }
+               } else { 
+                   x = true;  //Si el id o folio se encontro va a devolver true
+               }
+            } else{
+                x = false;
+                switch(opcion){
+                    case 0: JOptionPane.showMessageDialog(null, "Lo sentimos pero el id del producto no existe o esta incorrecto");         break;
+                    case 1: JOptionPane.showMessageDialog(null, "Lo sentimos pero el folio de la venta no existe o esta incorrecto");      break;
+                    case 2:      break;
+                    default: System.out.println("Error"); break;
+                } 
+            } 
+        }   catch(SQLException e){  System.out.println(" El error es " + e);
+            
+        }  finally {
+            //cerrar conecciones con la bd
+            try {
+                if (rs != null) rs.close();
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {  System.out.println("Error al cerrar la conexión " + e);
             }
         }
         
-   
+        return x;
     }
-
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,17 +218,16 @@ public class JFDetalleVenta extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTFFolio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTFFolio1 = new javax.swing.JTextField();
+        jTCantidad = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBAgregarDetalleV = new javax.swing.JButton();
+        jBEliminarDetalleV = new javax.swing.JButton();
+        jBMostarDetalleVenta = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
+        jLSubtotal = new javax.swing.JLabel();
         jBShowProductos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTDetalleVenta = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTVentas = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -115,9 +240,9 @@ public class JFDetalleVenta extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jTFIdEmpleado = new javax.swing.JTextField();
         jLTotal = new javax.swing.JLabel();
-        jBAgregar = new javax.swing.JButton();
+        jBAgregarVenta = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
-        jBMostrar = new javax.swing.JButton();
+        jBMostrarVentas = new javax.swing.JButton();
         jBActualizar = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
@@ -161,20 +286,25 @@ public class JFDetalleVenta extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Cantidad:");
 
-        jTFFolio1.setBackground(new java.awt.Color(255, 255, 255));
-        jTFFolio1.setForeground(new java.awt.Color(0, 0, 0));
+        jTCantidad.setBackground(new java.awt.Color(255, 255, 255));
+        jTCantidad.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Subtotal:");
 
-        jButton1.setText("Agregar");
-
-        jButton2.setText("Eliminar");
-
-        jButton3.setText("Mostrar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBAgregarDetalleV.setText("Agregar");
+        jBAgregarDetalleV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBAgregarDetalleVActionPerformed(evt);
+            }
+        });
+
+        jBEliminarDetalleV.setText("Eliminar");
+
+        jBMostarDetalleVenta.setText("Mostrar");
+        jBMostarDetalleVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMostarDetalleVentaActionPerformed(evt);
             }
         });
 
@@ -185,16 +315,9 @@ public class JFDetalleVenta extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Salir");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("0.00");
+        jLSubtotal.setForeground(new java.awt.Color(0, 0, 0));
+        jLSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLSubtotal.setText("0.00");
 
         jBShowProductos.setText("Mostrar productos disponibles");
         jBShowProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -210,36 +333,30 @@ public class JFDetalleVenta extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addContainerGap(17, Short.MAX_VALUE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jTFIdProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                 .addComponent(jTFFolio, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTFFolio1, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTCantidad, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jBShowProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jBMostarDetalleVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBAgregarDetalleV, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(7, 7, 7)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBEliminarDetalleV, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(14, 14, 14))
         );
@@ -256,28 +373,26 @@ public class JFDetalleVenta extends javax.swing.JFrame {
                     .addComponent(jTFFolio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFFolio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel12))
+                    .addComponent(jLSubtotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jBEliminarDetalleV)
+                    .addComponent(jBAgregarDetalleV))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(jBMostarDetalleVenta)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBShowProductos)
-                .addGap(15, 15, 15)
-                .addComponent(jButton5)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTDetalleVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -293,7 +408,7 @@ public class JFDetalleVenta extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTDetalleVenta);
 
         jTVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -344,19 +459,19 @@ public class JFDetalleVenta extends javax.swing.JFrame {
         jLTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLTotal.setText("0.00");
 
-        jBAgregar.setText("Agregar");
-        jBAgregar.addActionListener(new java.awt.event.ActionListener() {
+        jBAgregarVenta.setText("Agregar");
+        jBAgregarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAgregarActionPerformed(evt);
+                jBAgregarVentaActionPerformed(evt);
             }
         });
 
         jBEliminar.setText("Eliminar");
 
-        jBMostrar.setText("Mostrar");
-        jBMostrar.addActionListener(new java.awt.event.ActionListener() {
+        jBMostrarVentas.setText("Mostrar");
+        jBMostrarVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBMostrarActionPerformed(evt);
+                jBMostrarVentasActionPerformed(evt);
             }
         });
 
@@ -406,7 +521,7 @@ public class JFDetalleVenta extends javax.swing.JFrame {
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBAgregarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -414,10 +529,10 @@ public class JFDetalleVenta extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jBMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBMostrarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,12 +557,12 @@ public class JFDetalleVenta extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBAgregar)
+                    .addComponent(jBAgregarVenta)
                     .addComponent(jBEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBActualizar)
-                    .addComponent(jBMostrar))
+                    .addComponent(jBMostrarVentas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
@@ -488,31 +603,26 @@ public class JFDetalleVenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jBMostarDetalleVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostarDetalleVentaActionPerformed
+        this.showVentasODetalleVenta(0);
+       
+    }//GEN-LAST:event_jBMostarDetalleVentaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jBMostrarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarVentasActionPerformed
 
-    private void jBMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrarActionPerformed
-
-        this.showVentas();
-        
-        
-    }//GEN-LAST:event_jBMostrarActionPerformed
+        this.showVentasODetalleVenta(1);
+    }//GEN-LAST:event_jBMostrarVentasActionPerformed
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -527,7 +637,7 @@ public class JFDetalleVenta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBShowProductosActionPerformed
 
-    private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+    private void jBAgregarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarVentaActionPerformed
         //Se guardan los datos que se hayan ingresado, todos de tipo string ya que no hay problema solo se van a ocupar para ser insertados
         String folio = this.jTFolioV.getText();
         String fecha = this.jTFFecha.getText();
@@ -583,22 +693,76 @@ public class JFDetalleVenta extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Lo sentimos pero el id del empleado no existe o esta incorrecto");
             }
-        }   catch(SQLException e){
-            System.out.println(" El error es " + e);
-            
+        }   catch(SQLException e){      System.out.println(" El error es " + e);
         }  finally {
             //cerrar conecciones con la bd
             try {
                 if (rs != null) rs.close();
                 if (st != null) st.close();
                 if (con != null) con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión " + e);
-            }
+            } catch (SQLException e) {      System.out.println("Error al cerrar la conexión " + e);     }
         }
      
+       
         
-    }//GEN-LAST:event_jBAgregarActionPerformed
+        
+        
+    }//GEN-LAST:event_jBAgregarVentaActionPerformed
+
+    private void jBAgregarDetalleVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarDetalleVActionPerformed
+        int cant;
+        
+        int idP = Integer.parseInt(this.jTFIdProducto.getText());
+        int folio = Integer.parseInt(this.jTFFolio.getText());
+        int cantidad = Integer.parseInt(jTCantidad.getText());
+        
+        //Estructuramos la instruccion sql para agregar el nuevo detalle venta
+        String sqlInsertar;
+        /*
+        Evaluamos 3 cosas:
+        1)Si el id del producto existe en la tabla de productos
+        2)Si el folio de la venta existe en la tabla venta
+        3) si la cantidad colocada es menor a la cantidad existente en la tabla producto
+        */
+        if(this.buscarProductoYFolio(0, idP, 0) && this.buscarProductoYFolio(1, folio, 0) && this.buscarProductoYFolio(2, idP, cantidad)){
+            System.out.println("Todobieeeeeeeeeeeeeeeeeen");
+            
+            int validacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas insertar este registro?", "Confirmar insersion registro", JOptionPane.YES_NO_OPTION);
+            if(validacion == JOptionPane.YES_OPTION) {
+                //Calculamos el subtotal con el metodo
+                
+                float subtotal = this.totalProductoDetalleVenta(idP, cantidad);
+                this.jLSubtotal.setText(subtotal + "");
+                sqlInsertar = "insert into detallev values(" + idP + "," + folio + "," + cantidad + "," + subtotal + ");";
+                try{
+                    con=conect.getConnection();
+                    st=con.createStatement();
+                    con.setAutoCommit(false);
+                    st.addBatch(sqlInsertar);
+                    st.executeBatch();
+                    con.commit();
+                    con.setAutoCommit(true);
+                    JOptionPane.showMessageDialog(null, "Registro exitoso a la base de datos");
+                    
+                }catch(SQLException e){
+                    System.out.println(" El error es " + e);
+                }  finally {
+                    try {
+                        if (st != null) st.close();
+                        if (con != null) con.close();
+                    } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
+                } 
+        } else {    System.out.println("Opcion cancelada por el usuario");  }
+            
+            
+            
+            
+            
+            
+     
+        } 
+     
+    }//GEN-LAST:event_jBAgregarDetalleVActionPerformed
 
     /**
      * @param args the command line arguments
@@ -637,21 +801,20 @@ public class JFDetalleVenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBActualizar;
-    private javax.swing.JButton jBAgregar;
+    private javax.swing.JButton jBAgregarDetalleV;
+    private javax.swing.JButton jBAgregarVenta;
     private javax.swing.JButton jBEliminar;
-    private javax.swing.JButton jBMostrar;
+    private javax.swing.JButton jBEliminarDetalleV;
+    private javax.swing.JButton jBMostarDetalleVenta;
+    private javax.swing.JButton jBMostrarVentas;
     private javax.swing.JButton jBShowProductos;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLSubtotal;
     private javax.swing.JLabel jLTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -665,13 +828,13 @@ public class JFDetalleVenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTCantidad;
+    private javax.swing.JTable jTDetalleVenta;
     private javax.swing.JTextField jTFFecha;
     private javax.swing.JTextField jTFFolio;
-    private javax.swing.JTextField jTFFolio1;
     private javax.swing.JTextField jTFIdEmpleado;
     private javax.swing.JTextField jTFIdProducto;
     private javax.swing.JTextField jTFolioV;
     private javax.swing.JTable jTVentas;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

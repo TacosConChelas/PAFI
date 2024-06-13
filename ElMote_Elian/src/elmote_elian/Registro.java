@@ -21,6 +21,8 @@ public class Registro extends javax.swing.JFrame {
     Statement st;
     DefaultTableModel modeloArticulo;
     ResultSet rs;
+    
+    Encriptacion encriptar = new Encriptacion();
     /**
      * Creates new form Registro
      */
@@ -137,9 +139,11 @@ public class Registro extends javax.swing.JFrame {
         String id = nuevoID.getText();
         String contraseña = nuevaContrasena.getText();
         
+        String contraseñaE = encriptar.encriptar(contraseña);
+        
         
         String sql1 = "select * from usuario where idU = " + id + ";";
-        String sql2 = "insert into usuario values (" + id + ", null, null, null, '" + contraseña + "');";
+        String sql2 = "insert into usuario values (" + id + ", null, null, null, '" + contraseñaE + "');";
         
         try{
             con = conect.getConnection();

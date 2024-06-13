@@ -26,14 +26,10 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="25" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="jBEmpleados" min="-2" pref="694" max="-2" attributes="0"/>
-                      <Component id="jBArticulos" min="-2" pref="694" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jBDetallarVenta" min="-2" pref="341" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBNewMateriales" min="-2" pref="346" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jBEmpleados" pref="694" max="32767" attributes="0"/>
+                      <Component id="jBArticulos" pref="694" max="32767" attributes="0"/>
+                      <Component id="jBDetallarVenta" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -56,10 +52,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBEmpleados" min="-2" pref="57" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jBNewMateriales" pref="60" max="32767" attributes="0"/>
-                  <Component id="jBDetallarVenta" max="32767" attributes="0"/>
-              </Group>
+              <Component id="jBDetallarVenta" min="-2" pref="60" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jBProveedores" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -102,14 +95,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBDetallarVentaActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jBNewMateriales">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Detallar una compra de productos"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBNewMaterialesActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBShowOrdenes">

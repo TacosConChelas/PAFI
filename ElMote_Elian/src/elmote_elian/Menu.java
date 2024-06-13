@@ -99,14 +99,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("PEDIDOS");
+        jButton5.setText("PROVEEDORES");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("INVENTARIO");
+        jButton6.setText("VENTAS");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -180,7 +180,10 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
+        Clientes cliente = new Clientes(tipousuario, this.id);
+        cliente.setVisible(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -205,15 +208,19 @@ public class Menu extends javax.swing.JFrame {
         trabajadores.setVisible(true);
         
         
-        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+       
+        Proveedor p = new Proveedor(tipousuario, this.id);
+        p.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        
+        Ventas ventas = new Ventas(tipousuario, this.id);
+        ventas.setVisible(true);
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void RespaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RespaldoActionPerformed

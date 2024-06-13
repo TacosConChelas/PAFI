@@ -65,7 +65,12 @@ public class JFMainPantalla extends javax.swing.JFrame {
 
         jButton4.setText("Detallar compra de productos");
 
-        jButton5.setText("Lista de proveedores");
+        jButton5.setText("Proveedores");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Mostrar ordenes de venta");
 
@@ -130,7 +135,15 @@ public class JFMainPantalla extends javax.swing.JFrame {
         empleados.setVisible(true);
     }//GEN-LAST:event_jBShowEmpleadosActionPerformed
 
-    /**
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        
+        JFProvedores1 proveedor = new JFProvedores1(this.idU);
+        proveedor.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    /*
      * @param args the command line arguments
      */
     public static void main(String args[]) {

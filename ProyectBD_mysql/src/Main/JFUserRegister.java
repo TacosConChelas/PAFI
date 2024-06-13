@@ -24,7 +24,8 @@ public class JFUserRegister extends javax.swing.JFrame {
     DefaultTableModel modeloArticulo;
     ResultSet rs;
     
-     BitacoraUser vitacora = new BitacoraUser();
+    BitacoraUser vitacora = new BitacoraUser();
+    EncriptationPwd encriptPwd = new EncriptationPwd();
     //se crea un objeto llamado vitacora apartir de la clase BitacoraUser para que esta pueda registrar las acciones del usuario en esta clase
     /**
      * Creates new form JFUserRegister
@@ -151,10 +152,12 @@ public class JFUserRegister extends javax.swing.JFrame {
         Date fechaD = new Date();
         //System.out.println("hoy es " + fechaD.toString());
         
+        String pwdUEncript = this.encriptPwd.encode("TacosConChelas", pwdU);
+        
         String sqlBusqueda = "select * from users where idUser = " + idUser + ";"; 
         //la variable que se va a encargar de hacer la busqueda si el usuario ingresado no existe 
        
-        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdU + "');";
+        String sqlInsert = "insert into users values (" + idUser + ", '" + pwdUEncript + "');";
         //si el usuario no existe se usa esta variable para agregar ese nuevo usuario a la tabla de users
         try{
             //Se hace el try catch para realizar la coneccion

@@ -21,6 +21,8 @@ public class InicioSesion extends javax.swing.JFrame {
     Statement st;
     
     ResultSet rs;
+    Encriptacion encriptar = new Encriptacion();
+    
     /**
      * Creates new form InicioSesion
      */
@@ -144,7 +146,7 @@ public class InicioSesion extends javax.swing.JFrame {
         int id = Integer.parseInt(idU.getText());
         String contraseña = contrasena.getText(); 
         String sql = "select contraseña from usuario where idU = " + id + ";";
-        
+        //2089  pepe1
         try{
             con = conect.getConnection();
             st = con.createStatement();
@@ -152,9 +154,11 @@ public class InicioSesion extends javax.swing.JFrame {
             System.out.println("Coneccion correcta");
         
             if(rs.next()){
+                String contraseñaE = encriptar.encriptar(contraseña);
+                //System.out.println(contraseñaE);
                 String contraseñaBD = rs.getString("contraseña");
                 
-                if(contraseña.equals(contraseñaBD)){
+                if(contraseñaE.equals(contraseñaBD)){
                     
                     Menu menu = new Menu(id);
                     menu.setVisible(true);

@@ -107,7 +107,7 @@ public class TasaDeGIF extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(30, 30, 30));
-        jLabel6.setText("Numero de Orden:");
+        jLabel6.setText("Número de Orden:");
 
         NoO.setBackground(new java.awt.Color(255, 255, 255));
         NoO.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

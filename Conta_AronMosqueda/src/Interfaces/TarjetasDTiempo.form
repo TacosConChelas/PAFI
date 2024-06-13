@@ -111,29 +111,32 @@
                                       <Component id="fecha1" pref="111" max="32767" attributes="0"/>
                                       <Component id="fecha2" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="trabajador1" min="-2" pref="162" max="-2" attributes="0"/>
+                                      <Component id="trabajador2" min="-2" pref="162" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="noHoras1" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
                                       <Component id="noHoras2" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="tarifa2" min="-2" pref="162" max="-2" attributes="0"/>
-                                          <EmptySpace pref="51" max="32767" attributes="0"/>
-                                          <Component id="Tot2" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="tarifa1" min="-2" pref="162" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="Tot1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
+                                      <Component id="tarifa2" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                                      <Component id="tarifa1" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
                                       </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Tot2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Tot1" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -144,9 +147,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -166,6 +169,7 @@
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -173,6 +177,7 @@
                       <Component id="tarifa1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="Tot1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="fecha1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="trabajador1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -180,6 +185,7 @@
                       <Component id="noHoras2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="tarifa2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="Tot2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="trabajador2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -206,7 +212,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1e" green="1e" red="1e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Numero de orden:"/>
+            <Property name="text" type="java.lang.String" value="N&#xfa;mero de orden:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -217,7 +223,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1e" green="1e" red="1e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fecha:"/>
+            <Property name="text" type="java.lang.String" value="Periodo:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="fecha2">
@@ -244,7 +250,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1e" green="1e" red="1e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Numero de horas:"/>
+            <Property name="text" type="java.lang.String" value="N&#xfa;mero de horas:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="noHoras1">
@@ -427,6 +433,49 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="trabajador1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[90, 34]"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="trabajador2">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[90, 34]"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel8">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Medium" size="12" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="1e" green="1e" red="1e" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nombre del trabajador:"/>
           </Properties>
         </Component>
       </SubComponents>

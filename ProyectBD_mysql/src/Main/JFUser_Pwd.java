@@ -29,6 +29,7 @@ public class JFUser_Pwd extends javax.swing.JFrame {
     ResultSet rs;
     
     BitacoraUser vitacora = new BitacoraUser();
+    EncriptationPwd encriptPwd = new EncriptationPwd();
     //se crea un objeto llamado vitacora apartir de la clase BitacoraUser para que esta pueda registrar las acciones del usuario en esta clase
     /**
      * Creates new form JFUser_Pwd
@@ -175,8 +176,6 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         userR.setVisible(true); //Se hace visible
         userR.setLocationRelativeTo(null); //Se coloca en el centro de la pantalla 
         
-        
-        
     }//GEN-LAST:event_jBRegistrarseActionPerformed
 
         
@@ -184,6 +183,8 @@ public class JFUser_Pwd extends javax.swing.JFrame {
         
         int idUser = Integer.parseInt(new String(this.jPF_IdUser.getPassword()));
         String pwdU = new String(this.jPFPwdUser.getPassword());
+        
+        String pwdEncript = this.encriptPwd.encode("TacosConChelas", pwdU);
         
         String sqlBusqueda = " select pwdUser from users where idUser = " + idUser + ";" ;
         //.getPassword().toString()
@@ -199,7 +200,7 @@ public class JFUser_Pwd extends javax.swing.JFrame {
             if(rs.next()){
                 String pwdFromBD = rs.getString("pwdUser");
                 
-                if(pwdU.equals(pwdFromBD)){
+                if(pwdEncript.equals(pwdFromBD)){
                     
                     if(idUser == 9999){
                         JOptionPane.showMessageDialog(null, "Ingreso exitoso al usuario ROOT");

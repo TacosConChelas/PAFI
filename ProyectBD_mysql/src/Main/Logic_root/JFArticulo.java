@@ -462,27 +462,22 @@ public class JFArticulo extends javax.swing.JFrame {
             try{
                 con = conect.getConnection();
                 con.setAutoCommit(false);
-                
                 st = con.createStatement();
                 st.executeUpdate(sql);
-                
                 con.commit();
                 con.setAutoCommit(true);
                
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
         
-                //this.actualizacionTablaUsers_AfterAction(2);
+                //this.actualizacionTablaUsers_AfterAction(2
                 this.vitacora.vitacoraUsuarioArticulos(2, this.idUser);
-            }catch(SQLException e){
-                System.out.println(" El error es " + e);
-                
+            }catch(SQLException e){     System.out.println(" El error es " + e);
             } finally {
                 try {
                     if (st != null) st.close();
                     if (con != null) con.close();
                 } catch (SQLException e) {  System.out.println("Error al cerrar la conexión: " + e);    }
             } 
-        
         } else {    System.out.println("Opcion cancelada por el usuario");  }
         
     }//GEN-LAST:event_jBUpdateActionPerformed
