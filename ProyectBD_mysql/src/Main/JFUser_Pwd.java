@@ -222,32 +222,21 @@ public class JFUser_Pwd extends javax.swing.JFrame {
                         vitacora.vitacoraUsuarioSistema(idUser, 1);
                     }
                     
-                } else {
-                    
-                    JOptionPane.showMessageDialog(null, "Contraseña incrrecta");
-                }
+                } else {    JOptionPane.showMessageDialog(null, "Contraseña incrrecta");    }
                 
             } else {
                 JOptionPane.showMessageDialog(null, "Lo sentimos pero este usuario no existe");
             }
-        }   catch(SQLException e){
-            System.out.println(" El error es " + e);
-            
+        }   catch(SQLException e){      System.out.println(" El error es " + e);
         }  finally {
             try {
                 if (rs != null) rs.close();
                 if (st != null) st.close();
                 if (con != null) con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión " + e);
-            }
+            } catch (SQLException e) {      System.out.println("Error al cerrar la conexión " + e); }
         }
         
-        
-        
-        
-        
-        
+         
     }//GEN-LAST:event_jBIngresarActionPerformed
 
     /**
